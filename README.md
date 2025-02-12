@@ -1,44 +1,8 @@
-# Lampang Local Events Web Application
-Local Vibes: Local Event Organizer System is a web app project.
-A web application for discovering events and activities in Lampang area (2025) such as festivals, markets, children's activities, family events, and community activities. Users can save interesting events and create their own events.
-Target Audience
+# React + Vite
 
-**Tourists and local residents in Lampang province**
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-## Core Features
-### 1. Event Search
+Currently, two official plugins are available:
 
-Users can search for events using keywords or categories (e.g., festivals, music events, markets)
-
-### 2. Event Map
-
-Display events on a map with location markers and event information
-
-### 3. Event Creation
-
-Registered users can create new events by specifying name, date, location, and details
-
-### 4. User System
-
-Registration, login (Authentication), and profile management
-
-### 5. Notification System
-
-Notify users about events they have shown interest in
-
-## Functional Requirements
-### 1. User System
-
-New user registration
-Login/logout with JWT Authentication
-Manage personal information (name, email, profile picture)
-
-### 2. Event Management System
-
-Search events by keywords, categories, or time period
-Display events in list or map view
-Add, edit, or delete events (registered users only)
-
-### 3. Notification System
-
-Send notifications for new events or upcoming events of interest
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
