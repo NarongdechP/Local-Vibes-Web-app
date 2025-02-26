@@ -1,42 +1,382 @@
-#root {
-  max-width: 1280px;
+/* Global styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Kanit', sans-serif; /* Thai websites often use Kanit font */
+}
+
+body {
+  background-color: #fff;
+}
+
+.container {
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  padding: 0 20px;
+}
+
+/* Navbar styles */
+.nav {
+  background-color: rgb(30, 40, 238);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  padding: 15px 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.navbar .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+}
+
+.logo-container {
+  margin-right: 30px;
 }
 
 .logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+  background-color: #f0f0f0;
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-weight: bold;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.nav-links {
+  display: flex;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.nav-link {
+  margin-right: 20px;
+  text-decoration: none;
+  color: #333;
+  font-size: 16px;
 }
 
-.card {
-  padding: 2em;
+.user-icon {
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  cursor: pointer;
 }
 
-.read-the-docs {
-  color: #888;
+/* Search section */
+.search-section {
+  margin: 20px 0;
+}
+
+.search-container {
+  display: flex;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.search-input-container {
+  flex: 1;
+  position: relative;
+}
+
+.search-icon {
+  position: absolute;
+  top: 50%;
+  left: 15px;
+  transform: translateY(-50%);
+  color: #777;
+}
+
+.search-input {
+  width: 100%;
+  padding: 12px 12px 12px 40px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.location-selector {
+  display: flex;
+  align-items: center;
+  background: white;
+  padding: 0 15px;
+  margin-left: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  cursor: pointer;
+}
+
+.location-selector i {
+  margin: 0 5px;
+  color: #777;
+}
+
+/* Header section */
+.header-section {
+  text-align: left;
+  margin: 30px 0;
+}
+
+.main-title {
+  font-size: 28px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  color: #666;
+  font-size: 16px;
+}
+
+/* Content with sidebar layout */
+.content-with-sidebar {
+  display: flex;
+  margin: 30px 0;
+}
+
+.sidebar {
+  width: 250px;
+  margin-right: 30px;
+}
+
+.sidebar-title {
+  font-size: 18px;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+.category-list {
+  list-style: none;
+}
+
+.category-item {
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+  cursor: pointer;
+}
+
+.category-item i {
+  margin-right: 10px;
+  width: 20px;
+  color: #000000;
+}
+
+/* Events container */
+.events-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Event card */
+.event-card {
+  display: flex;
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+
+.event-card:hover {
+  transform: translateY(-5px);
+}
+
+.event-image {
+  width: 150px;
+  height: 150px;
+  background-color: #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.event-image img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+}
+
+.event-details {
+  padding: 15px;
+  flex: 1;
+}
+
+.event-title {
+  font-size: 18px;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.event-price {
+  color: #0066cc;
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.event-date, .event-location, .event-organizer {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.event-categories {
+  display: flex;
+  margin-top: 10px;
+  gap: 10px;
+}
+
+.event-category {
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+  color: #777;
+}
+
+.category-icon {
+  margin-right: 5px;
+}
+
+/* Link styles */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.event-card-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Add this to your existing CSS */
+
+/* Search section adjustments */
+.search-section {
+  margin: 20px 0;
+}
+
+.search-container {
+  display: flex;
+  max-width: 600px;
+  margin: 0 auto;
+  align-items: center;
+}
+
+/* From uiverse.io by @satyamchaudharydev */
+/* removing default style of button */
+.form button {
+  border: none;
+  background: none;
+  color: #8b8ba7;
+}
+
+/* styling of whole input container */
+.form {
+  --timing: 0.3s;
+  --width-of-input: 100%; /* Changed to 100% to be responsive */
+  --height-of-input: 40px;
+  --border-height: 2px;
+  --input-bg: #fff;
+  --border-color: #2f2ee9;
+  --border-radius: 30px;
+  --after-border-radius: 1px;
+  position: relative;
+  width: var(--width-of-input);
+  height: var(--height-of-input);
+  display: flex;
+  align-items: center;
+  padding-inline: 0.8em;
+  border-radius: var(--border-radius);
+  transition: border-radius 0.5s ease;
+  background: var(--input-bg,#fff);
+  flex: 1; /* Added to work with flexbox layout */
+  margin-right: 10px; /* Added spacing */
+}
+
+/* styling of Input */
+.input {
+  font-size: 0.9rem;
+  background-color: transparent;
+  width: 100%;
+  height: 100%;
+  padding-inline: 0.5em;
+  padding-block: 0.7em;
+  border: none;
+}
+
+/* styling of animated border */
+.form:before {
+  content: "";
+  position: absolute;
+  background: var(--border-color);
+  transform: scaleX(0);
+  transform-origin: center;
+  width: 100%;
+  height: var(--border-height);
+  left: 0;
+  bottom: 0;
+  border-radius: 1px;
+  transition: transform var(--timing) ease;
+}
+
+/* Hover on Input */
+.form:focus-within {
+  border-radius: var(--after-border-radius);
+}
+
+input:focus {
+  outline: none;
+}
+
+/* here is code of animated border */
+.form:focus-within:before {
+  transform: scale(1);
+}
+
+/* styling of close button */
+/* == you can click the close button to remove text == */
+.reset {
+  border: none;
+  background: none;
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* close button shown when typing */
+input:not(:placeholder-shown) ~ .reset {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* sizing svg icons */
+.form svg {
+  width: 17px;
+  margin-top: 3px;
+}
+
+/* Location selector needs some adjustments to match new search bar height */
+.location-selector {
+  display: flex;
+  align-items: center;
+  background: white;
+  padding: 0 15px;
+  height: 40px; /* Match the search bar height */
+  border-radius: 30px; /* Match the search bar border radius */
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.location-selector i {
+  margin: 0 5px;
+  color: #777;
 }
