@@ -1,14 +1,16 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
 import { FaUserCircle } from "react-icons/fa";
+
+
 
 const Navbar = () => {
   return (
-    <nav className="bg-gray-900 text-white p-4 flex justify-between items-center">
-      <div className="flex items-center space-x-4">
-        <button className="bg-white text-gray-900 px-4 py-2 rounded-full font-bold">
-          LOGO
-        </button>
-        <a href="/" className="text-gray-300 hover:text-white">หน้าหลัก</a>
-        <a href="/create" className="text-gray-300 hover:text-white">สร้างอีเวนต์</a>
+    <nav className="navbar">
+      <div className="navbar-logo">LOGO</div>
+      <div className="navbar-links">
+        <Link to="/">หน้าหลัก</Link>
+        <Link to="/create">สร้างอีเวนต์</Link>
       </div>
       <FaUserCircle className="text-2xl" />
     </nav>

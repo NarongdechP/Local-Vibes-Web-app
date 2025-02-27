@@ -2,9 +2,11 @@ import React from 'react';
 import Navbar from '../components/Navbar';
 import SearchBar from '../components/SearchBar';
 import EventCard from '../components/EventCard';
+import { FaUtensils, FaMusic, FaBriefcase, FaHeart } from "react-icons/fa";
+
 
 const Home = () => {
-  // Sample data matching what's shown in the image
+  // ข้อมูลตัวอย่างของอีเวนต์
   const sampleEvents = [
     {
       id: 1,
@@ -14,8 +16,8 @@ const Home = () => {
       location: 'เขื่อนภูมิพล กฟผ. แม่เมาะ',
       organizer: 'จังหวัดลำปาง การไฟฟ้าฝ่ายผลิตแห่งประเทศไทย (กฟผ.) แม่เมาะ',
       categories: [
-        { name: 'อาหาร & เครื่องดื่ม', icon: 'fa-utensils' },
-        { name: 'ดนตรี', icon: 'fa-music' }
+        { name: 'อาหาร & เครื่องดื่ม', icon: <FaUtensils /> },
+        { name: 'ดนตรี', icon: <FaMusic /> }
       ],
       image: '/placeholder-image.jpg'
     },
@@ -27,8 +29,8 @@ const Home = () => {
       location: 'เขื่อนวังละลอง',
       organizer: 'เทศบาลนครลำปาง',
       categories: [
-        { name: 'อาหาร & เครื่องดื่ม', icon: 'fa-utensils' },
-        { name: 'ดนตรี', icon: 'fa-music' }
+        { name: 'อาหาร & เครื่องดื่ม', icon: <FaUtensils /> },
+        { name: 'ดนตรี', icon: <FaMusic /> }
       ],
       image: '/placeholder-image.jpg'
     }
@@ -37,35 +39,37 @@ const Home = () => {
   return (
     <div className="home-container">
       <div className="main-content">
+        <SearchBar />
         <div className="header-section">
           <h1 className="main-title">อีเวนต์ในลำปาง, ประเทศไทย</h1>
           <p className="subtitle">ค้นหากิจกรรมที่คุณสนใจหรือกิจกรรมยอดนิยมในพื้นที่ของคุณ</p>
         </div>
-        <SearchBar />
         
         <div className="content-with-sidebar">
+          {/* Sidebar */}
           <div className="sidebar">
             <h2 className="sidebar-title">หมวดหมู่</h2>
             <ul className="category-list">
               <li className="category-item">
-              <i class="fi fi-rr-briefcase"></i>
+                <FaBriefcase />
                 <span>ธุรกิจ</span>
               </li>
               <li className="category-item">
-              <i className="fi fi-rr-hamburger-soda"></i>
+                <FaUtensils />
                 <span>อาหาร & เครื่องดื่ม</span>
               </li>
               <li className="category-item">
-                <i className="fa fa-heart"></i>
+                <FaHeart />
                 <span>สุขภาพ</span>
               </li>
               <li className="category-item">
-                <i className="fa fa-music"></i>
+                <FaMusic />
                 <span>ดนตรี</span>
               </li>
             </ul>
           </div>
           
+          {/* Events List */}
           <div className="events-container">
             {sampleEvents.map(event => (
               <EventCard key={event.id} event={event} />
