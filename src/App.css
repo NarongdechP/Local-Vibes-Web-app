@@ -20,16 +20,17 @@ body {
 }
 
 .container {
-  max-width: 100%;
-  width: 100%;
-  padding: 0;
-  margin: 0;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh; /* ทำให้ container เต็มจอ */
 }
+
 
 /* Navbar styles */
 .navbar {
+  width: 100%;  
   background-color: #0155Cf; /* Deep blue shade */
   color: white;
   display: flex;
@@ -437,3 +438,4 @@ input:not(:placeholder-shown) ~ .reset {
 .event-details {
   padding: 15px;
 }
+

@@ -1,5 +1,4 @@
 import React from 'react';
-import Navbar from '../components/Navbar';
 import SearchBar from '../components/SearchBar';
 import EventCard from '../components/EventCard';
 import { FaUtensils, FaMusic, FaBriefcase, FaHeart } from "react-icons/fa";
