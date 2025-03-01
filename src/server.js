@@ -1,19 +1,22 @@
 import express from "express";
-import * as dotenv from "dotenv";
-import authRoutes from "./routes/authRoutes.js";  // ✅ นำเข้า API Login/Register
-import { pool } from "./config/db.js";  // ✅ นำเข้าการเชื่อมต่อ DB
+import cors from "cors";
+import dotenv from "dotenv";
+import authRoutes from "./routes/authRoutes.js";
+import eventRoutes from "./routes/eventRoutes.js";
+import { pool } from "./config/db.js";  // นำเข้า pool จาก db.js
 
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+
+// กำหนดให้ Backend สามารถรับการเชื่อมต่อจาก Frontend ได้
+app.use(cors({
+  origin: 'http://localhost:5173' // หรือ domain ของคุณ ถ้าใช้เครื่องอื่น
+}));
 
 app.use(express.json());
 
-// 📌 ใช้งาน API Authentication
-app.use("/auth", authRoutes);
-
-// 📌 API ทดสอบการเชื่อมต่อ Database
+// ทดสอบการเชื่อมต่อฐานข้อมูล
 app.get("/test-db", async (req, res) => {
     try {
         const result = await pool.query("SELECT NOW() AS now");
@@ -24,7 +27,10 @@ app.get("/test-db", async (req, res) => {
     }
 });
 
-// 📌 เริ่มเซิร์ฟเวอร์
+app.use("/auth", authRoutes);
+app.use("/events", eventRoutes);
+
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`🚀 Server is running on http://localhost:${PORT}`);
 });
