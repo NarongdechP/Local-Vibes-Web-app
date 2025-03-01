@@ -1,8 +1,9 @@
 import React from 'react';
 import SearchBar from '../components/SearchBar';
+import Navbar from '../components/Navbar';
 import EventCard from '../components/EventCard';
 import { FaUtensils, FaMusic, FaBriefcase, FaHeart } from "react-icons/fa";
-
+import './Home.css'
 
 const Home = () => {
   // ข้อมูลตัวอย่างของอีเวนต์
@@ -43,7 +44,7 @@ const Home = () => {
           <h1 className="main-title">อีเวนต์ในลำปาง, ประเทศไทย</h1>
           <p className="subtitle">ค้นหากิจกรรมที่คุณสนใจหรือกิจกรรมยอดนิยมในพื้นที่ของคุณ</p>
         </div>
-        
+        <Navbar />
         <div className="content-with-sidebar">
           {/* Sidebar */}
           <div className="sidebar">
