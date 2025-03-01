@@ -1,25 +1,21 @@
+/* Base layout */
 body, html {
   margin: 0;
   padding: 0;
   width: 100vw;
   height: 100vh;
-  background-color: #ffffff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  background-color: #f0f0f0; /* Light gray background like in the images */
   overflow-x: hidden;
+  font-family: Arial, sans-serif;
 }
 
-/* ปรับขนาด container */
+/* Container layout */
 .container {
-  max-width: 1200px; /* ป้องกันการขยายเกินขนาด */
+  max-width: 1200px;
   width: 100%;
-  height: 100%;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  position: relative;
 }
 
 /* Navbar Styles */
@@ -29,19 +25,26 @@ body, html {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem;
-  background-color: #0155Cf;
-  border-bottom: 1px solid #e0e0e0;
+  padding: 0.8rem 2rem;
+  background-color: #0057D9; /* Bright blue from image 2 */
+  color: white;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* ปรับให้องค์ประกอบ Navbar ยืดหยุ่น */
 .navbar-left, .navbar-right {
   display: flex;
   align-items: center;
+}
+
+.navbar-logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: white;
 }
 
 .main-nav {
@@ -50,54 +53,188 @@ body, html {
   gap: 1rem;
 }
 
-.search-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+/* Search section */
+.search-section {
   width: 100%;
   max-width: 1200px;
-  margin-top: 80px;
+  margin: 80px auto 20px auto; /* Adjusted to account for fixed navbar */
+  padding: 0 20px;
 }
 
-/* ปรับ sidebar ให้ปรับขนาดอัตโนมัติ */
+.search-container {
+  display: flex;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  align-items: center;
+}
+
+.form {
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: white;
+  border-radius: 25px;
+  border: 1px solid #ddd;
+  padding: 8px 15px;
+}
+
+.input {
+  width: 100%;
+  height: 40px;
+  border: none;
+  background: transparent;
+  padding: 0 10px;
+  font-size: 16px;
+}
+
+.input:focus {
+  outline: none;
+}
+
+.location-selector {
+  display: flex;
+  align-items: center;
+  background: white;
+  padding: 0 15px;
+  height: 40px;
+  border-radius: 25px;
+  border: 1px solid #ddd;
+  margin-left: 10px;
+  white-space: nowrap;
+}
+
+/* Header section */
+.header-section {
+  text-align: left;
+  width: 100%;
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 0 20px;
+}
+
+.main-title {
+  font-size: 28px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  color: #666;
+  font-size: 16px;
+}
+
+/* Content with sidebar layout */
 .content-with-sidebar {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 30px;
   width: 100%;
   max-width: 1200px;
+  margin: 0 auto;
+  margin-left: 0;
+  padding: 0 20px;
 }
 
 .sidebar {
-  flex: 1;
-  min-width: 200px;
-  max-width: 300px;
+  flex: 0 0 200px;
 }
 
 .events-container {
-  flex: 2;
-  min-width: 400px;
-  max-width: 900px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
-/* ปรับขนาด event card */
+.sidebar-title {
+  font-size: 18px;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+.category-list {
+  list-style: none;
+  padding: 0;
+}
+
+.category-item {
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+  cursor: pointer;
+}
+
+.category-item i {
+  margin-right: 15px;
+  width: 20px;
+  color: #333;
+}
+
+/* Event card */
 .event-card {
   display: flex;
-  flex-wrap: wrap;
   width: 100%;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.event-card:hover {
+  transform: translateY(-5px);
 }
 
 .event-image {
-  flex: 1;
-  min-width: 150px;
+  width: 220px;
   height: auto;
+  min-height: 150px;
+  background-color: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.event-content {
-  flex: 2;
+.event-details {
+  flex: 1;
+  padding: 15px;
 }
 
-/* Media Query สำหรับหน้าจอเล็ก */
+.event-title {
+  font-size: 18px;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.event-price {
+  color: #0066cc;
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.event-date, .event-location {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.event-categories {
+  display: flex;
+  margin-top: 10px;
+  gap: 15px;
+}
+
+.event-category {
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+  color: #777;
+}
+
+/* Media Query for responsive design */
 @media (max-width: 768px) {
   .content-with-sidebar {
     flex-direction: column;
@@ -105,14 +242,29 @@ body, html {
   
   .sidebar {
     width: 100%;
+    max-width: 100%;
   }
   
   .event-card {
     flex-direction: column;
   }
-
+  
+  .event-image {
+    width: 100%;
+    height: 200px;
+  }
+  
   .navbar {
+    padding: 0.5rem 1rem;
+  }
+  
+  .search-container {
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
+  }
+  
+  .location-selector {
+    margin-left: 0;
+    margin-top: 10px;
   }
 }

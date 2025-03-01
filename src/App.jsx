@@ -4,6 +4,7 @@ import Login from "./pages/Login"
 import CreateEvent from "./pages/Create_Event";
 import Navbar from "./components/Navbar";
 import './App.css'
+import Register from "./pages/Register";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/create" element={<CreateEvent />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </Router>
   );

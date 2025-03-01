@@ -39,12 +39,12 @@ const Home = () => {
   return (
     <div className="home-container">
       <div className="main-content">
+      <Navbar />
         <SearchBar />
         <div className="header-section">
           <h1 className="main-title">อีเวนต์ในลำปาง, ประเทศไทย</h1>
           <p className="subtitle">ค้นหากิจกรรมที่คุณสนใจหรือกิจกรรมยอดนิยมในพื้นที่ของคุณ</p>
         </div>
-        <Navbar />
         <div className="content-with-sidebar">
           {/* Sidebar */}
           <div className="sidebar">

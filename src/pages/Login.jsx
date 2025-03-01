@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import './Login.css';
+import { Link } from 'react-router-dom';
+
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -71,12 +73,12 @@ const Login = () => {
 
           <button className="login-button" type="submit">ลงชื่อเข้าใช้</button>
         </form>
-
         <div className="signup-link">
-          ยังไม่มีบัญชีใช่ไหม? <a href="#">สร้างบัญชี</a>
+            ยังไม่มีบัญชีใช่ไหม? <Link to="/register">สร้างบัญชี</Link>
+        </div>
+        <div/>
         </div>
       </div>
-    </div>
   );
 };
 
