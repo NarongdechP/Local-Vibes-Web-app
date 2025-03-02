@@ -12,12 +12,12 @@ body, html {
 
 /* ปรับขนาดองค์ประกอบให้เต็มหน้าจอ */
 .container {
-  width: 90%;
+  width: 100%;
   max-width: 1200px; /* Limit the maximum width */
   height: auto; /* Allow height to adjust based on content */
   margin: auto; /* Centering */
   display: flex;
-  flex-direction: column; /* Stack elements vertically */
+  /*flex-direction: column; /* Stack elements vertically */
 }
 
 /* องค์ประกอบต่าง ๆ คงสีเดิม แต่เพิ่มลูกเล่นสีน้ำเงิน */
@@ -160,14 +160,16 @@ body, html {
 }
 
 .main-title {
-  font-size: 28px;
+  font-size: 38px;
   color: #333;
   margin-bottom: 10px;
+  margin-left: 120px;
 }
 
 .subtitle {
   color: #666;
   font-size: 16px;
+  margin-left: 120px;
 }
 
 /* Content with sidebar layout */
@@ -178,14 +180,16 @@ body, html {
 }
 
 .sidebar {
-  width: 250px;
+  width: 1250px;
   margin-right: 30px;
+  margin-left: 120px;
 }
 
 .sidebar-title {
-  font-size: 18px;
+  font-size: 16px;
   margin-bottom: 15px;
   font-weight: bold;
+  
 }
 
 .category-list {
