@@ -26,6 +26,8 @@ app.get("/test-db", async (req, res) => {
         res.status(500).json({ error: "Database connection failed" });
     }
 });
+
+// ดูข้อมูลผู้ใช้ทั้งหมด
 app.get("/users", async (req, res) => {
     try {
         const result = await pool.query("SELECT id, username, email, profile_pic, registered_at FROM usersystem");
@@ -36,6 +38,16 @@ app.get("/users", async (req, res) => {
     }
 });
 
+// ดูข้อมูลอีเวนต์ทั้งหมด
+app.get("events/all", async (req, res) => {
+    try {
+        const result = await pool.query("SELECT id, event_name, description, start_date, end_date, location, category, created_at, event_image_url FROM events");
+        res.json(result.rows); // ส่งข้อมูลทั้งหมดจากตาราง events
+    } catch (err) {
+        console.error("🔴 Database Query Error:", err);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+});
 
 app.use("/auth", authRoutes);
 app.use("/events", eventRoutes);
