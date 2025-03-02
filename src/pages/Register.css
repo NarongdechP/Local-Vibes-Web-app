@@ -67,7 +67,7 @@
   .form-group {
     width: 100%;
     max-width: 400px;
-    margin-bottom: 1.2rem;
+    margin-left: 1.2rem;
   }
   
   .form-group label {
@@ -78,7 +78,7 @@
   }
   
   .form-group input {
-    width: 100%;
+    width: 160%;
     padding: 12px;
     font-size: 1rem;
     border: 1px solid #ccc;

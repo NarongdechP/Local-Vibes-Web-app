@@ -68,7 +68,7 @@ const Home = () => {
 
   return (
     <div className="home-container">
-      <Navbar />
+      {/*<Navbar />*/}
       <SearchBar />
       <div className="header-section">
         <h1 className="main-title">อีเวนต์ในลำปาง, ประเทศไทย</h1>

@@ -6,19 +6,14 @@
   font-family: 'Prompt', sans-serif;
 }
 
-body {
-  background-color: #ffffff;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+
 
 .home-container {
   width: 100%;
-  max-width: 1200px;
-  max-height: 1200px;
-  margin: 0 ; /* จัดกึ่งกลาง */
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  
 }
 
 .main-content {
