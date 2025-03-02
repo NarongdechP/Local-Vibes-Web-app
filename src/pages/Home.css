@@ -1,39 +1,48 @@
-/* Base layout */
-body, html {
+/* Reset margins and padding */
+* {
   margin: 0;
   padding: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: #f0f0f0; /* Light gray background like in the images */
-  overflow-x: hidden;
-  font-family: Arial, sans-serif;
+  box-sizing: border-box;
+  font-family: 'Prompt', sans-serif;
 }
 
-/* Container layout */
-.container {
-  max-width: 1200px;
-  width: 100%;
-  margin: 0 auto;
+body {
+  background-color: #ffffff;
+  min-height: 100vh;
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
+
+.home-container {
+  width: 100%;
+  max-width: 1200px;
+  max-height: 1200px;
+  margin: 0 ; /* จัดกึ่งกลาง */
+}
+
+.main-content {
+  width: 100%;
+  padding: 1rem;
+}
+
+
 
 /* Navbar Styles */
 .navbar {
   width: 100%;
-  max-width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0.8rem 2rem;
-  background-color: #0057D9; /* Bright blue from image 2 */
+  background-color: #0057D9;
   color: white;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 1000;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
 }
 
 .navbar-left, .navbar-right {
@@ -56,9 +65,9 @@ body, html {
 /* Search section */
 .search-section {
   width: 100%;
-  max-width: 1200px;
-  margin: 80px auto 20px auto; /* Adjusted to account for fixed navbar */
+  margin-top: 100px; /* Adjusted to account for fixed navbar */
   padding: 0 20px;
+  box-sizing: border-box;
 }
 
 .search-container {
@@ -109,9 +118,8 @@ body, html {
 .header-section {
   text-align: left;
   width: 100%;
-  max-width: 1200px;
-  margin: 20px auto;
   padding: 0 20px;
+  box-sizing: border-box;
 }
 
 .main-title {
@@ -131,10 +139,8 @@ body, html {
   flex-wrap: wrap;
   gap: 30px;
   width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  margin-left: 0;
   padding: 0 20px;
+  box-sizing: border-box;
 }
 
 .sidebar {
@@ -268,3 +274,20 @@ body, html {
     margin-top: 10px;
   }
 }
+.category-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.category-item:hover,
+.category-item.active {
+  background-color: #0057D9; /* สีส้มสดใส */
+  color: white;
+  border-radius: 30px;
+}
+
+

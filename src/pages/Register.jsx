@@ -6,10 +6,41 @@ const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState({});
+
+  const validateForm = () => {
+    let errors = {};
+    let isValid = true;
+
+    // ตรวจสอบชื่อ - นามสกุล (ต้องมีอักขระอย่างน้อย 2 ตัว)
+    if (name.trim().length < 3) {
+      errors.name = "กรุณากรอกชื่อ - นามสกุลอย่างน้อย 3 ตัวอักษร";
+      isValid = false;
+    }
+
+    // ตรวจสอบอีเมลหรือเบอร์โทรศัพท์
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phonePattern = /^[0-9]{10}$/;
+    if (!emailPattern.test(email) && !phonePattern.test(email)) {
+      errors.email = "กรุณากรอกอีเมลที่ถูกต้องหรือเบอร์โทรศัพท์ 10 หลัก";
+      isValid = false;
+    }
+
+    // ตรวจสอบรหัสผ่าน 
+    if (password.length < 8) {
+      errors.password = "รหัสผ่านต้องมีอย่างน้อย 8 ตัวอักษร";
+      isValid = false;
+    }
+
+    setErrors(errors);
+    return isValid;
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert("สมัครสมาชิกสำเร็จ!");
+    if (validateForm()) {
+      alert("สมัครสมาชิกสำเร็จ!");
+    }
   };
 
   return (
@@ -40,6 +71,7 @@ const Register = () => {
               onChange={(e) => setName(e.target.value)}
               required
             />
+            {errors.name && <p className="error-message">{errors.name}</p>}
           </div>
 
           <div className="form-group">
@@ -51,6 +83,7 @@ const Register = () => {
               onChange={(e) => setEmail(e.target.value)}
               required
             />
+            {errors.email && <p className="error-message">{errors.email}</p>}
           </div>
 
           <div className="form-group">
@@ -62,6 +95,7 @@ const Register = () => {
               onChange={(e) => setPassword(e.target.value)}
               required
             />
+            {errors.password && <p className="error-message">{errors.password}</p>}
           </div>
 
           <button className="register-button" type="submit">สร้าง</button>
