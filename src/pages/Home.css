@@ -60,7 +60,8 @@
 /* Search section */
 .search-section {
   width: 100%;
-  margin-top: 100px; /* Adjusted to account for fixed navbar */
+  margin-top: 200px;
+  margin-left: -230px; /* Adjusted to account for fixed navbar */
   padding: 0 20px;
   box-sizing: border-box;
 }
