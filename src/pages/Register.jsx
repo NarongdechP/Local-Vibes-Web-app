@@ -1,24 +1,26 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios"; // นำเข้า axios
 import "./Register.css";
 
 const Register = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState({});
+  const [name, setName] = useState("");  // ค่าชื่อ
+  const [email, setEmail] = useState(""); // ค่าของอีเมล
+  const [password, setPassword] = useState(""); // ค่าของรหัสผ่าน
+  const [errors, setErrors] = useState({}); // ใช้จัดการข้อผิดพลาด
+  const [loading, setLoading] = useState(false); // ใช้จัดการสถานะการโหลด
+  const navigate = useNavigate(); // ใช้เปลี่ยนเส้นทางไปหน้า login เมื่อสมัครสำเร็จ
 
+  // ฟังก์ชันตรวจสอบข้อมูลก่อนส่ง
   const validateForm = () => {
     let errors = {};
     let isValid = true;
 
-    // ตรวจสอบชื่อ - นามสกุล (ต้องมีอักขระอย่างน้อย 2 ตัว)
     if (name.trim().length < 3) {
       errors.name = "กรุณากรอกชื่อ - นามสกุลอย่างน้อย 3 ตัวอักษร";
       isValid = false;
     }
 
-    // ตรวจสอบอีเมลหรือเบอร์โทรศัพท์
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const phonePattern = /^[0-9]{10}$/;
     if (!emailPattern.test(email) && !phonePattern.test(email)) {
@@ -26,7 +28,6 @@ const Register = () => {
       isValid = false;
     }
 
-    // ตรวจสอบรหัสผ่าน 
     if (password.length < 8) {
       errors.password = "รหัสผ่านต้องมีอย่างน้อย 8 ตัวอักษร";
       isValid = false;
@@ -36,16 +37,45 @@ const Register = () => {
     return isValid;
   };
 
-  const handleSubmit = (e) => {
+  // ฟังก์ชันจัดการการส่งข้อมูลไปที่ Backend
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (validateForm()) {
-      alert("สมัครสมาชิกสำเร็จ!");
+    if (!validateForm()) return;
+
+    setLoading(true);
+    setErrors({});
+
+    try {
+      // ส่งข้อมูลไปที่ Backend
+      const response = await axios.post(
+        "http://localhost:3000/auth/register",
+        {
+          username: name,  // ส่งข้อมูล 'username' แทน 'name' ตามที่ Backend คาดหวัง
+          email,
+          password,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json", // กำหนดเป็น JSON
+          },
+        }
+      );
+
+      alert("✅ สมัครสมาชิกสำเร็จ! กรุณาเข้าสู่ระบบ");
+      navigate("/login"); // เปลี่ยนเส้นทางไปที่หน้า Login
+    } catch (error) {
+      if (error.response) {
+        setErrors({ api: error.response.data.error || "เกิดข้อผิดพลาด" });
+      } else {
+        setErrors({ api: "ไม่สามารถเชื่อมต่อกับเซิร์ฟเวอร์ได้" });
+      }
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className="register-container">
-      {/* Sidebar */}
       <div className="register-sidebar">
         <div className="logo-container">
           <div className="logo-text">LOGO</div>
@@ -57,9 +87,10 @@ const Register = () => {
         </p>
       </div>
 
-      {/* Register Form */}
       <div className="register-form">
         <h2 className="form-title">สร้างบัญชีผู้ใช้</h2>
+
+        {errors.api && <p className="error-message">{errors.api}</p>}
 
         <form onSubmit={handleSubmit}>
           <div className="form-group">
@@ -98,7 +129,9 @@ const Register = () => {
             {errors.password && <p className="error-message">{errors.password}</p>}
           </div>
 
-          <button className="register-button" type="submit">สร้าง</button>
+          <button className="register-button" type="submit" disabled={loading}>
+            {loading ? "กำลังสมัคร..." : "สร้างบัญชี"}
+          </button>
         </form>
 
         <div className="login-link">

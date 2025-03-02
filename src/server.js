@@ -26,6 +26,16 @@ app.get("/test-db", async (req, res) => {
         res.status(500).json({ error: "Database connection failed" });
     }
 });
+app.get("/users", async (req, res) => {
+    try {
+        const result = await pool.query("SELECT id, username, email, profile_pic, registered_at FROM usersystem");
+        res.json(result.rows);
+    } catch (err) {
+        console.error("🔴 Database Query Error:", err);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+});
+
 
 app.use("/auth", authRoutes);
 app.use("/events", eventRoutes);

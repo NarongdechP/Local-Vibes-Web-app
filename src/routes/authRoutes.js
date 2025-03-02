@@ -7,12 +7,20 @@ import sanitizeHtml from "sanitize-html"; // ป้องกัน XSS
 
 const router = express.Router();
 
-// 📌 สมัครสมาชิก (เพิ่ม validation)
+// 📌 สมัครสมาชิก (ปรับให้รองรับทั้งอีเมลและเบอร์โทร)
 router.post(
     "/register",
     [
         body("username").trim().notEmpty().withMessage("กรุณากรอกชื่อผู้ใช้"),
-        body("email").isEmail().withMessage("กรุณากรอกอีเมลที่ถูกต้อง"),
+        body("email")
+            .custom((value) => {
+                const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                const phonePattern = /^[0-9]{10}$/;
+                if (!emailPattern.test(value) && !phonePattern.test(value)) {
+                    throw new Error("กรุณากรอกอีเมลที่ถูกต้องหรือเบอร์โทรศัพท์ 10 หลัก");
+                }
+                return true;
+            }),
         body("password").isLength({ min: 8 }).withMessage("รหัสผ่านต้องมีอย่างน้อย 8 ตัวอักษร"),
     ],
     async (req, res) => {
@@ -30,12 +38,16 @@ router.post(
         profile_pic = profile_pic ? sanitizeHtml(profile_pic) : null;
 
         try {
+            // ตรวจสอบว่าอีเมลหรือเบอร์โทรนี้ถูกใช้ไปแล้วหรือยัง
             const userCheck = await pool.query("SELECT * FROM usersystem WHERE email = $1", [email]);
             if (userCheck.rows.length > 0) {
-                return res.status(400).json({ error: "อีเมลนี้ถูกใช้ไปแล้ว" });
+                return res.status(400).json({ error: "อีเมลหรือเบอร์โทรนี้ถูกใช้ไปแล้ว" });
             }
 
+            // การเข้ารหัสรหัสผ่าน
             const hashedPassword = await bcrypt.hash(password, 10);
+
+            // บันทึกข้อมูลผู้ใช้ใหม่
             const result = await pool.query(
                 "INSERT INTO usersystem (username, email, password, profile_pic) VALUES ($1, $2, $3, $4) RETURNING id, username, email, profile_pic, registered_at",
                 [username, email, hashedPassword, profile_pic]
@@ -49,7 +61,7 @@ router.post(
     }
 );
 
-// 📌 เข้าสู่ระบบ (เพิ่ม validation)
+// 📌 เข้าสู่ระบบ (ยังคงรองรับการเข้าสู่ระบบด้วยอีเมล)
 router.post(
     "/login",
     [
@@ -91,4 +103,3 @@ router.post(
 );
 
 export default router;
-
