@@ -31,6 +31,7 @@ router.post(
         body("event_name").trim().notEmpty().withMessage("กรุณากรอกชื่ออีเวนต์"),
         body("start_date").isISO8601().withMessage("รูปแบบวันที่ไม่ถูกต้อง"),
         body("end_date").isISO8601().withMessage("รูปแบบวันที่ไม่ถูกต้อง"),
+        body("event_image_url").optional().isURL().withMessage("กรุณากรอก URL รูปภาพที่ถูกต้อง") // ตรวจสอบ URL รูปภาพ
     ],
     async (req, res) => {
         const errors = validationResult(req);
@@ -38,7 +39,7 @@ router.post(
             return res.status(400).json({ errors: errors.array() });
         }
 
-        let { event_name, description, start_date, end_date, location, category } = req.body;
+        let { event_name, description, start_date, end_date, location, category, event_image_url } = req.body;
         const userId = req.user.id;
 
         // ป้องกัน XSS
@@ -46,11 +47,12 @@ router.post(
         description = description ? sanitizeHtml(description) : null;
         location = location ? sanitizeHtml(location) : null;
         category = category ? sanitizeHtml(category) : null;
+        event_image_url = event_image_url ? sanitizeHtml(event_image_url) : null;
 
         try {
             const result = await pool.query(
-                "INSERT INTO events (event_name, description, start_date, end_date, location, category, created_by) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *",
-                [event_name, description, start_date, end_date, location, category, userId]
+                "INSERT INTO events (event_name, description, start_date, end_date, location, category, created_by, event_image_url) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *",
+                [event_name, description, start_date, end_date, location, category, userId, event_image_url]
             );
 
             res.status(201).json({ message: "สร้างอีเวนต์สำเร็จ", event: result.rows[0] });
@@ -60,5 +62,16 @@ router.post(
         }
     }
 );
+
+// 📌 ดูข้อมูลทั้งหมดของอีเวนต์
+router.get("/all", async (req, res) => {
+    try {
+        const result = await pool.query("SELECT * FROM events");
+        res.status(200).json({ events: result.rows });
+    } catch (err) {
+        console.error("🔴 Error fetching events:", err);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+});
 
 export default router;
