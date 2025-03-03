@@ -59,24 +59,24 @@ const Login = () => {
   return (
     <div className="login-container">
       <div className="login-sidebar">
-        <div className="logo-container">
-          <div className="logo-text">LOGO</div>
+        <div className="login-logo-container">
+          <div className="login-logo-text">LOGO</div>
         </div>
-        <h1 className="sidebar-title">ยินดีต้อนรับสู่ Local Vibes!</h1>
-        <p className="sidebar-description">
+        <h1 className="login-sidebar-title">ยินดีต้อนรับสู่ Local Vibes!</h1>
+        <p className="login-sidebar-description">
           มาค้นหาประสบการณ์ที่เป็นของคุณเอง ร่วมเดินทางไปกับเรา และสร้างช่วงเวลาที่พิเศษไม่เหมือนใคร
         </p>
       </div>
 
       <div className="login-form">
-        <h2 className="form-title">ยินดีต้อนรับกลับมา!</h2>
-        <p className="form-subtitle">ขอให้เป็นวันที่ดี :-)</p>
+        <h2 className="login-form-title">ยินดีต้อนรับกลับมา!</h2>
+        <p className="login-form-subtitle">ขอให้เป็นวันที่ดี :-)</p>
 
         {/* แสดงข้อความแจ้งเตือนถ้ามีข้อผิดพลาด */}
         {error && <p className="error-message">{error}</p>}
 
         <form onSubmit={handleSubmit}>
-          <div className="form-group">
+          <div className="login-form-group">
             <label htmlFor="email">ชื่อผู้ใช้หรือเบอร์โทรศัพท์</label>
             <input
               type="text"
@@ -87,7 +87,7 @@ const Login = () => {
             />
           </div>
 
-          <div className="form-group">
+          <div className="login-form-group">
             <label htmlFor="password">รหัสผ่าน</label>
             <input
               type="password"

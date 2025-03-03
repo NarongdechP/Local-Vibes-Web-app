@@ -306,7 +306,7 @@ a {
   transition: border-radius 0.5s ease;
   background: var(--input-bg,#fff);
   flex: 1; /* Added to work with flexbox layout */
-  margin-right: 10px; /* Added spacing */
+  margin-right: 20px; /* Added spacing */
 
 }
 

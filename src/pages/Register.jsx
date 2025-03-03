@@ -77,23 +77,23 @@ const Register = () => {
   return (
     <div className="register-container">
       <div className="register-sidebar">
-        <div className="logo-container">
-          <div className="logo-text">LOGO</div>
+        <div className="register-logo-container">
+          <div className="register-logo-text">LOGO</div>
         </div>
-        <h1 className="sidebar-title">ยินดีต้อนรับสู่ Local Vibes!</h1>
-        <p className="sidebar-description">
+        <h1 className="register-sidebar-title">ยินดีต้อนรับสู่ Local Vibes!</h1>
+        <p className="register-sidebar-description">
           มาค้นหาประสบการณ์ที่เป็นของคุณเอง ร่วมเดินทางไปกับเรา
           และสร้างช่วงเวลาที่พิเศษไม่เหมือนใคร
         </p>
       </div>
 
       <div className="register-form">
-        <h2 className="form-title">สร้างบัญชีผู้ใช้</h2>
+        <h2 className="register-form-title">สร้างบัญชีผู้ใช้</h2>
 
         {errors.api && <p className="error-message">{errors.api}</p>}
 
         <form onSubmit={handleSubmit}>
-          <div className="form-group">
+          <div className="register-form-group">
             <label>ชื่อ - นามสกุล</label>
             <input
               type="text"
@@ -105,7 +105,7 @@ const Register = () => {
             {errors.name && <p className="error-message">{errors.name}</p>}
           </div>
 
-          <div className="form-group">
+          <div className="register-form-group">
             <label>อีเมลหรือเบอร์โทรศัพท์</label>
             <input
               type="text"
@@ -117,7 +117,7 @@ const Register = () => {
             {errors.email && <p className="error-message">{errors.email}</p>}
           </div>
 
-          <div className="form-group">
+          <div className="register-form-group">
             <label>รหัสผ่าน</label>
             <input
               type="password"
