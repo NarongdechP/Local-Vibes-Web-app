@@ -103,6 +103,7 @@ body {
     border: 1px solid #ddd;
     border-radius: 4px;
     background-color: #f7f7f7;
+    color: black;
   }
   
   .login-button {
