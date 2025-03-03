@@ -8,7 +8,7 @@ import Register from "./pages/Register";
 
 function App() {
   return (
-    <Router basename="/">
+    <Router basename="/Local-Vibes-Web-app">
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />

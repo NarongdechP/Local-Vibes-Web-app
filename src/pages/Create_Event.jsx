@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import "./Create_Event.css";
 
 const CreateEvent = () => {
   const [eventName, setEventName] = useState("");
@@ -14,8 +15,7 @@ const CreateEvent = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const token = localStorage.getItem("authToken"); // assuming the token is stored in localStorage
+    const token = localStorage.getItem("authToken");
 
     const eventData = {
       event_name: eventName,
@@ -29,87 +29,79 @@ const CreateEvent = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/create", // API endpoint
+        "http://localhost:5000/create",
         eventData,
         {
-          headers: {
-            Authorization: `Bearer ${token}`, // เพิ่ม Token ใน Header
-          },
+          headers: { Authorization: `Bearer ${token}` },
         }
       );
-      setMessage(response.data.message); // ข้อความสำเร็จ
-      setError(null); // เคลียร์ข้อผิดพลาด
+      setMessage(response.data.message);
+      setError(null);
     } catch (error) {
       setError(error.response?.data?.error || "เกิดข้อผิดพลาด");
-      setMessage(null); // เคลียร์ข้อความสำเร็จหากเกิดข้อผิดพลาด
+      setMessage(null);
     }
   };
 
   return (
-    <div>
-      <h1>สร้างอีเวนต์</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>ชื่ออีเวนต์</label>
+    <div className="CreateEvent-container">
+      <div className="CreateEvent-form-wrapper">
+        <h1 className="CreateEvent-title">สร้างอีเวนต์</h1>
+        <form onSubmit={handleSubmit}>
           <input
             type="text"
+            placeholder="ชื่ออีเวนต์"
+            className="CreateEvent-input"
             value={eventName}
             onChange={(e) => setEventName(e.target.value)}
           />
-        </div>
-        <div>
-          <label>รายละเอียด</label>
           <textarea
+            placeholder="คำอธิบาย"
+            className="CreateEvent-input"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
-        </div>
-        <div>
-          <label>วันที่เริ่มต้น</label>
           <input
             type="date"
+            className="CreateEvent-input"
             value={startDate}
             onChange={(e) => setStartDate(e.target.value)}
           />
-        </div>
-        <div>
-          <label>วันที่สิ้นสุด</label>
           <input
             type="date"
+            className="CreateEvent-input"
             value={endDate}
             onChange={(e) => setEndDate(e.target.value)}
           />
-        </div>
-        <div>
-          <label>สถานที่</label>
           <input
             type="text"
+            placeholder="สถานที่"
+            className="CreateEvent-input"
             value={location}
             onChange={(e) => setLocation(e.target.value)}
           />
-        </div>
-        <div>
-          <label>หมวดหมู่</label>
           <input
             type="text"
+            placeholder="หมวดหมู่"
+            className="CreateEvent-input"
             value={category}
             onChange={(e) => setCategory(e.target.value)}
           />
-        </div>
-        <div>
-          <label>URL รูปภาพอีเวนต์</label>
           <input
-            type="url"
+            type="text"
+            placeholder="ลิงก์รูปภาพ"
+            className="CreateEvent-input"
             value={eventImageUrl}
             onChange={(e) => setEventImageUrl(e.target.value)}
           />
-        </div>
-        <button type="submit">สร้างอีเวนต์</button>
-      </form>
-
-      {/* แสดงข้อความสำเร็จหรือข้อผิดพลาด */}
-      {message && <div style={{ color: "green" }}>{message}</div>}
-      {error && <div style={{ color: "red" }}>{error}</div>}
+          {error && <p className="CreateEvent-error">{error}</p>}
+          {message && <p className="CreateEvent-success">{message}</p>}
+          <div className="CreateEvent-button-group">
+            <button type="submit" className="CreateEvent-primary-btn">สร้าง</button>
+            <button type="button" className="CreateEvent-secondary-btn">ยกเลิก</button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };
