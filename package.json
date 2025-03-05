@@ -4,14 +4,10 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\"",
-    "dev:frontend": "vite",
-    "dev:backend": "node src/server.js",
+    "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview",
-    "start": "node src/server.js",
-    "test": "nodemon src/server.js"
+    "preview": "vite preview"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.7.2",

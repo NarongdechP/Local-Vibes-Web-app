@@ -1,5 +1,5 @@
 import express from "express";
-import { pool } from "../config/db.js";
+import { pool } from "../../server/config/db.js";
 import jwt from "jsonwebtoken";
 import { body, validationResult } from "express-validator";
 import sanitizeHtml from "sanitize-html";

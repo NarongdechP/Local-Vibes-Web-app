@@ -1,7 +1,7 @@
 import express from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { pool } from "../config/db.js";
+import { pool } from "../../server/config/db.js";
 import { body, validationResult } from "express-validator";
 import sanitizeHtml from "sanitize-html"; // ป้องกัน XSS
 
