@@ -1,13 +1,14 @@
 import express from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { pool } from "../../server/config/db.js";
 import { body, validationResult } from "express-validator";
 import sanitizeHtml from "sanitize-html"; // ป้องกัน XSS
+import User from '../models/User.js'; // ใช้เส้นทางที่ถูกต้อง
+
 
 const router = express.Router();
 
-// 📌 สมัครสมาชิก (ปรับให้รองรับทั้งอีเมลและเบอร์โทร)
+// 📌 สมัครสมาชิก (รองรับทั้งอีเมลและเบอร์โทร)
 router.post(
     "/register",
     [
@@ -39,8 +40,8 @@ router.post(
 
         try {
             // ตรวจสอบว่าอีเมลหรือเบอร์โทรนี้ถูกใช้ไปแล้วหรือยัง
-            const userCheck = await pool.query("SELECT * FROM usersystem WHERE email = $1", [email]);
-            if (userCheck.rows.length > 0) {
+            const existingUser = await User.findOne({ email });
+            if (existingUser) {
                 return res.status(400).json({ error: "อีเมลหรือเบอร์โทรนี้ถูกใช้ไปแล้ว" });
             }
 
@@ -48,12 +49,16 @@ router.post(
             const hashedPassword = await bcrypt.hash(password, 10);
 
             // บันทึกข้อมูลผู้ใช้ใหม่
-            const result = await pool.query(
-                "INSERT INTO usersystem (username, email, password, profile_pic) VALUES ($1, $2, $3, $4) RETURNING id, username, email, profile_pic, registered_at",
-                [username, email, hashedPassword, profile_pic]
-            );
+            const newUser = new User({
+                username,
+                email,
+                password: hashedPassword,
+                profile_pic,
+            });
 
-            res.status(201).json({ message: "สมัครสมาชิกสำเร็จ", user: result.rows[0] });
+            await newUser.save();
+
+            res.status(201).json({ message: "สมัครสมาชิกสำเร็จ", user: newUser });
         } catch (err) {
             console.error("🔴 Register Error:", err);
             res.status(500).json({ error: "Internal Server Error" });
@@ -61,7 +66,7 @@ router.post(
     }
 );
 
-// 📌 เข้าสู่ระบบ (ยังคงรองรับการเข้าสู่ระบบด้วยอีเมล)
+// 📌 เข้าสู่ระบบ
 router.post(
     "/login",
     [
@@ -77,19 +82,18 @@ router.post(
         const { email, password } = req.body;
 
         try {
-            const userCheck = await pool.query("SELECT * FROM usersystem WHERE email = $1", [email]);
-            if (userCheck.rows.length === 0) {
+            const user = await User.findOne({ email });
+            if (!user) {
                 return res.status(401).json({ error: "อีเมลหรือรหัสผ่านไม่ถูกต้อง" });
             }
 
-            const user = userCheck.rows[0];
             const passwordMatch = await bcrypt.compare(password, user.password);
             if (!passwordMatch) {
                 return res.status(401).json({ error: "อีเมลหรือรหัสผ่านไม่ถูกต้อง" });
             }
 
             const token = jwt.sign(
-                { id: user.id, email: user.email, username: user.username, profile_pic: user.profile_pic },
+                { id: user._id, email: user.email, username: user.username, profile_pic: user.profile_pic },
                 process.env.JWT_SECRET,
                 { expiresIn: "1h" }
             );
