@@ -29,7 +29,7 @@ const CreateEvent = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/create",
+        "http://localhost:3000/events/create",
         eventData,
         {
           headers: { Authorization: `Bearer ${token}` },

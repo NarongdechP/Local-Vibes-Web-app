@@ -2,8 +2,9 @@ import express from "express";
 import jwt from "jsonwebtoken";
 import { body, validationResult } from "express-validator";
 import sanitizeHtml from "sanitize-html";
+import mongoose from "mongoose";  // ✅ นำเข้า mongoose เพื่อตรวจสอบ ObjectId
 import Event from "../models/Event.js";
-import authenticateUser from "../middleware/authMiddleware.js"; // Middleware ตรวจสอบ JWT
+import authenticateUser from "../middleware/authMiddleware.js"; 
 
 const router = express.Router();
 
@@ -61,6 +62,47 @@ router.get("/all", async (req, res) => {
         res.status(200).json({ events });
     } catch (err) {
         console.error("🔴 Error fetching events:", err);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+});
+
+// 📌 API ค้นหากิจกรรม
+router.get("/search", async (req, res) => {
+    const { query } = req.query;
+
+    if (!query) {
+        return res.status(400).json({ error: "กรุณากรอกคำค้นหา" });
+    }
+
+    try {
+        const events = await Event.find({
+            event_name: { $regex: query, $options: "i" }, // ค้นหาแบบ case-insensitive
+        });
+
+        res.status(200).json({ events });
+    } catch (err) {
+        console.error("🔴 Error searching events:", err);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+});
+
+// 📌 ดูข้อมูลอีเวนต์ตามไอดี
+router.get("/:id", async (req, res) => {
+    const { id } = req.params;
+
+    // ✅ ตรวจสอบว่า ID เป็น ObjectId หรือไม่
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({ error: "ID ไม่ถูกต้อง" });
+    }
+
+    try {
+        const event = await Event.findById(id);
+        if (!event) {
+            return res.status(404).json({ message: "ไม่พบข้อมูลอีเวนต์นี้" });
+        }
+        res.status(200).json({ event });
+    } catch (err) {
+        console.error("🔴 Error fetching event:", err);
         res.status(500).json({ error: "Internal Server Error" });
     }
 });

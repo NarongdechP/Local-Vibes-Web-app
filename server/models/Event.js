@@ -8,6 +8,7 @@ const EventSchema = new mongoose.Schema({
     location: { type: String },
     category: { type: String },
     created_by: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+    event_image_url: { type: String, default: "" },  // ✅ เพิ่มฟิลด์ URL รูป
     created_at: { type: Date, default: Date.now }
 });
 

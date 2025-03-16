@@ -1,55 +1,49 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import SearchBar from "../components/SearchBar";
-import Navbar from "../components/Navbar";
 import EventCard from "../components/EventCard";
 import { FaUtensils, FaMusic, FaBriefcase, FaHeart } from "react-icons/fa";
 import { motion } from "framer-motion";
 import "./Home.css";
 
-// หมวดหมู่ของอีเวนต์
 const categories = [
   { name: "ธุรกิจ", icon: <FaBriefcase /> },
-  { name: "อาหาร & เครื่องดื่ม", icon: <FaUtensils /> },
+  { name: "อาหาร", icon: <FaUtensils /> },
   { name: "สุขภาพ", icon: <FaHeart /> },
   { name: "ดนตรี", icon: <FaMusic /> },
 ];
 
-// ข้อมูลตัวอย่างของอีเวนต์
-const sampleEvents = [
-  {
-    id: 1,
-    title: "เทศกาลท่องเที่ยวแม่เมาะ ครั้งที่ 20",
-    isFree: true,
-    dateRange: "8-10 พฤศจิกายน 2567",
-    location: "เขื่อนภูมิพล กฟผ. แม่เมาะ",
-    organizer: "จังหวัดลำปาง การไฟฟ้าฝ่ายผลิตแห่งประเทศไทย (กฟผ.) แม่เมาะ",
-    categories: 
-    [ 
-      { name: 'อาหาร & เครื่องดื่ม', icon: <FaUtensils /> },
-        { name: 'ดนตรี', icon: <FaMusic /> }
-      ],
-    image: "/placeholder-image.jpg",
-  },
-  {
-    id: 2,
-    title: "เทศกาลคริสต์มาสลำปาง 2024",
-    isFree: true,
-    dateRange: "25-27 ธันวาคม 2567",
-    location: "เขื่อนวังละลอง",
-    organizer: "เทศบาลนครลำปาง",
-    categories: 
-    [ 
-      { name: 'อาหาร & เครื่องดื่ม', icon: <FaUtensils /> },
-        { name: 'ดนตรี', icon: <FaMusic /> }
-      ],
-    image: "/placeholder-image.jpg",
-  },
-];
-
 const Home = () => {
+  const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategories, setSelectedCategories] = useState([]);
+  const [events, setEvents] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-  // ฟังก์ชันกดเลือกหมวดหมู่ (กดซ้ำเพื่อยกเลิก)
+  useEffect(() => {
+    fetchEvents();
+  }, []);
+
+  const fetchEvents = async (query = "") => {
+    setLoading(true);
+    let url = query
+      ? `http://localhost:3000/events/search?query=${encodeURIComponent(query)}`
+      : `http://localhost:3000/events/all`;
+
+    try {
+      const res = await fetch(url);
+      const data = await res.json();
+      setEvents(data.events);
+    } catch (err) {
+      console.error("Error fetching events:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSearch = (query) => {
+    setSearchTerm(query);
+    fetchEvents(query);
+  };
+
   const handleCategoryClick = (category) => {
     setSelectedCategories((prevSelected) =>
       prevSelected.includes(category)
@@ -58,24 +52,21 @@ const Home = () => {
     );
   };
 
-  // กรองอีเวนต์ตามหมวดหมู่ที่เลือก
   const filteredEvents =
     selectedCategories.length > 0
-      ? sampleEvents.filter((event) =>
-          selectedCategories.some((cat) => event.categories.includes(cat))
+      ? events.filter((event) =>
+          selectedCategories.some((cat) => event.category.includes(cat))
         )
-      : sampleEvents;
+      : events;
 
   return (
     <div className="home-container">
-      {/*<Navbar />*/}
-      <SearchBar />
+      <SearchBar onSearch={handleSearch} />
       <div className="header-section">
         <h1 className="main-title">อีเวนต์ในลำปาง, ประเทศไทย</h1>
         <p className="subtitle">ค้นหากิจกรรมที่คุณสนใจหรือกิจกรรมยอดนิยมในพื้นที่ของคุณ</p>
       </div>
       <div className="content-with-sidebar">
-        {/* Sidebar */}
         <div className="sidebar">
           <h2 className="sidebar-title">หมวดหมู่</h2>
           <ul className="category-list">
@@ -96,12 +87,13 @@ const Home = () => {
           </ul>
         </div>
 
-        {/* Events List */}
         <div className="events-container">
-          {filteredEvents.length > 0 ? (
-            filteredEvents.map((event) => <EventCard key={event.id} event={event} />)
+          {loading ? (
+            <p>กำลังโหลดข้อมูล...</p>
+          ) : filteredEvents.length > 0 ? (
+            filteredEvents.map((event) => <EventCard key={event._id} event={event} />)
           ) : (
-            <p className="no-events">ไม่มีอีเวนต์ในหมวดหมู่นี้</p>
+            <p className="no-events">ไม่พบอีเวนต์ที่ตรงกับคำค้นหา</p>
           )}
         </div>
       </div>
