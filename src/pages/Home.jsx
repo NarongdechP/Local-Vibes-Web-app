@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import SearchBar from "../components/SearchBar";
 import EventCard from "../components/EventCard";
 import { FaUtensils, FaMusic, FaBriefcase, FaHeart } from "react-icons/fa";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSuitcaseRolling } from "@fortawesome/free-solid-svg-icons";
 import { motion } from "framer-motion";
 import "./Home.css";
 
@@ -10,6 +12,8 @@ const categories = [
   { name: "อาหาร", icon: <FaUtensils /> },
   { name: "สุขภาพ", icon: <FaHeart /> },
   { name: "ดนตรี", icon: <FaMusic /> },
+  { name: "ท่องเที่ยว", icon: <FontAwesomeIcon icon={faSuitcaseRolling} /> }
+
 ];
 
 const Home = () => {
