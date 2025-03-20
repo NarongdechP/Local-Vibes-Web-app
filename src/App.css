@@ -280,17 +280,17 @@ a {
 
 /* From uiverse.io by @satyamchaudharydev */
 /* removing default style of button */
-.form button {
+/* .form button {
   border: none;
   background: none;
   color: #8b8ba7;
 }
 
 /* styling of whole input container */
-.form {
+/* .form {
   --timing: 0.3s;
   --width-of-input: 100%; /* Changed to 100% to be responsive */
-  --height-of-input: 40px;
+  /* --height-of-input: 40px;
   --border-height: 2px;
   --input-bg: #fff;
   --border-color: #2f2ee9;
@@ -304,14 +304,14 @@ a {
   padding-inline: 0.8em;
   border-radius: 30px;
   transition: border-radius 0.5s ease;
-  background: var(--input-bg,#fff);
-  flex: 1; /* Added to work with flexbox layout */
-  margin-right: 20px; /* Added spacing */
+  background: var(--input-bg,#fff); */
+  /* flex: 1; /* Added to work with flexbox layout */
+  /* margin-right: 20px; /* Added spacing */
 
-}
+/* } */
 
 /* styling of Input */
-.input {
+/* .input {
   font-size: 0.9rem;
   background-color: transparent;
   width: 100%;
@@ -319,10 +319,10 @@ a {
   padding-inline: 0.5em;
   padding-block: 0.7em;
   border: none;
-}
+} */ */
 
 /* styling of animated border */
-.form:before {
+/* .form:before {
   content: "";
   position: absolute;
   background: var(--border-color);
@@ -334,21 +334,21 @@ a {
   bottom: 0;
   border-radius: 1px;
   transition: transform var(--timing) ease;
-}
+} */
 
 /* Hover on Input */
-.form:focus-within {
+/* .form:focus-within {
   border-radius: var(--after-border-radius);
-}
+} */
 
-input:focus {
+/* input:focus {
   outline: none;
-}
+} */
 
 /* here is code of animated border */
-.form:focus-within:before {
+/* .form:focus-within:before {
   transform: scale(1);
-}
+} */ */ */
 
 /* styling of close button */
 /* == you can click the close button to remove text == */
@@ -369,7 +369,7 @@ input:not(:placeholder-shown) ~ .reset {
 .form svg {
   width: 17px;
   margin-top: 3px;
-}
+} */
 
 /* Location selector needs some adjustments to match new search bar height */
 .location-selector {
