@@ -120,6 +120,11 @@ body {
     margin-bottom: 20px;
     width: 100%;
   }
+
+  .login-button:hover {
+    background: #0041a8;
+    box-shadow: 0 6px 10px rgba(1, 85, 207, 0.3);
+  }
   
   .signup-link {
     text-align: center;

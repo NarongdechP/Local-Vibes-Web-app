@@ -113,11 +113,14 @@
   padding-inline: 0.5em;
   padding-block: 0.7em;
   border: none;
+  color: white !important;
 
 }
 .input::placeholder {
   color: #fff;
 }
+
+
 
 
 /* styling of animated border */

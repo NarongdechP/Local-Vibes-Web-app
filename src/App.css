@@ -352,18 +352,6 @@ a {
 
 /* styling of close button */
 /* == you can click the close button to remove text == */
-.reset {
-  border: none;
-  background: none;
-  opacity: 0;
-  visibility: hidden;
-}
-
-/* close button shown when typing */
-input:not(:placeholder-shown) ~ .reset {
-  opacity: 1;
-  visibility: visible;
-}
 
 /* sizing svg icons */
 .form svg {

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+
 const EventCard = ({ event }) => {
   return (
     <Link to={`/event/${event._id}`} className="event-card-link">
