@@ -152,4 +152,57 @@ router.post(
     }
 );
 
+// 📌 เปลี่ยนอีเมล (ต้องล็อกอินก่อน)
+router.patch(
+    "/change-email",
+    authenticateUser, // Middleware ตรวจสอบ JWT Token
+    [
+        body("newEmail")
+            .trim()
+            .notEmpty()
+            .withMessage("กรุณากรอกอีเมลใหม่")
+            .custom((value) => {
+                const emailPattern = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+                if (!emailPattern.test(value)) {
+                    throw new Error("กรุณากรอกอีเมลที่ถูกต้อง");
+                }
+                return true;
+            })
+            .custom(async (value) => {
+                const existingUser = await User.findOne({ email: value });
+                if (existingUser) {
+                    throw new Error("อีเมลนี้ถูกใช้ไปแล้ว");
+                }
+                return true;
+            }),
+    ],
+    async (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+
+        const { newEmail } = req.body;
+        const userId = req.user.id; // ดึง userId จาก Token
+
+        try {
+            const user = await User.findById(userId);
+            if (!user) {
+                return res.status(404).json({ error: "ไม่พบผู้ใช้" });
+            }
+
+            // ป้องกัน XSS
+            user.email = sanitizeHtml(newEmail);
+
+            // บันทึกอีเมลใหม่ลงในฐานข้อมูล
+            await user.save();
+
+            res.json({ message: "เปลี่ยนอีเมลสำเร็จ", email: user.email });
+        } catch (err) {
+            console.error("🔴 Change Email Error:", err);
+            res.status(500).json({ error: "เกิดข้อผิดพลาดภายในเซิร์ฟเวอร์" });
+        }
+    }
+);
+
 export default router;
