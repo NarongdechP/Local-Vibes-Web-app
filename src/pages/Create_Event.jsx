@@ -15,7 +15,7 @@ const CreateEvent = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const token = localStorage.getItem("authToken");
+    const token = localStorage.getItem("token");
 
     const eventData = {
       event_name: eventName,
@@ -35,8 +35,20 @@ const CreateEvent = () => {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      setMessage(response.data.message);
+      setMessage(response.data.message);  // แสดงข้อความจาก server
       setError(null);
+
+      // แสดงข้อความสำเร็จ
+      alert("สร้างอีเวนต์สำเร็จ!");
+
+      // รีเซ็ตฟอร์ม
+      setEventName("");
+      setDescription("");
+      setStartDate("");
+      setEndDate("");
+      setLocation("");
+      setCategory("");
+      setEventImageUrl("");
     } catch (error) {
       setError(error.response?.data?.error || "เกิดข้อผิดพลาด");
       setMessage(null);

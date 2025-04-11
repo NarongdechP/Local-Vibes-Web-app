@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSuitcaseRolling } from "@fortawesome/free-solid-svg-icons";
 import { motion } from "framer-motion";
 import "./Home.css";
+import { useNavigate } from 'react-router-dom';
 
 const categories = [
   { name: "ธุรกิจ", icon: <FaBriefcase /> },
@@ -21,7 +22,8 @@ const Home = () => {
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(false);
-
+  const navigate = useNavigate();  // ✅
+  const username = localStorage.getItem('username')
   useEffect(() => {
     fetchEvents();
   }, []);

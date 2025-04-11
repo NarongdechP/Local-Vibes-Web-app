@@ -100,7 +100,13 @@ router.post(
                 { expiresIn: "1h" }
             );
 
-            res.json({ message: "เข้าสู่ระบบสำเร็จ", token });
+            // ✅ ส่ง username กลับไปใน response
+            res.json({
+                message: "เข้าสู่ระบบสำเร็จ",
+                token,
+                username: user.username, // ส่งกลับให้ Frontend เอาไปแสดงบน Navbar ได้
+                profile_pic: user.profile_pic // ถ้าต้องใช้รูปโปรไฟล์ในอนาคตก็แนบไปเลย
+            });
         } catch (err) {
             console.error("🔴 Login Error:", err);
             res.status(500).json({ error: "Internal Server Error" });

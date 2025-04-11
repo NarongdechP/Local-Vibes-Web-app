@@ -72,6 +72,17 @@ body, html {
 .navbar-links a:hover {
   opacity: 0.7;
 }
+.logout-button {
+  background-color: transparent;
+  border: none;
+  color: #e53935;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.logout-button:hover {
+  text-decoration: underline;
+}
 
 .logo-container {
   margin-right: 30px;
