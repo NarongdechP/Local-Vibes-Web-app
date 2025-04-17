@@ -4,7 +4,8 @@ Local Vibes เป็นเว็บแอปที่พัฒนาด้ว�
 
 # โครงสร้างโปรเจกต์
 
-```Local-Vibes-Web-app/
+```
+Local-Vibes-Web-app/
 ├── docker-compose.yml        # config สำหรับ Docker Compose
 ├── README.md
 ├── server/                   # Backend (Node.js + Express)
@@ -43,7 +44,7 @@ Local Vibes เป็นเว็บแอปที่พัฒนาด้ว�
    2.3 NODE_ENV สามารถเลือกได้ว่าเป็นแบบ development หรือ production
 
 3. ตรวจสอบการติดตั้ง Docker Desktop ด้วย docker -v
-   `ถ้ายังไม่ได้ติดตั้ง https://www.docker.com/products/docker-desktop/`
+   ถ้ายังไม่ได้ติดตั้ง `https://www.docker.com/products/docker-desktop/`
 
 4. สร้าง Docker image ใหม่โดยจะไม่ใช้ cache เดิม
    `docker-compose build --no-cache`
