@@ -7,7 +7,7 @@ export default defineConfig({
   base: '/Local-Vibes-Web-app/',  
   server: {
     proxy: {
-      '/api': 'http://localhost:3000' // เปลี่ยน `/api` เป็น endpoint ของคุณที่ backend ใช้
+      '/api': 'http://localhost:3000'
     }
   },
   css: {
