@@ -38,7 +38,6 @@ const CreateEvent = () => {
       setMessage(response.data.message);  // แสดงข้อความจาก server
       setError(null);
 
-      // แสดงข้อความสำเร็จ
       alert("สร้างอีเวนต์สำเร็จ!");
 
       // รีเซ็ตฟอร์ม
@@ -53,6 +52,18 @@ const CreateEvent = () => {
       setError(error.response?.data?.error || "เกิดข้อผิดพลาด");
       setMessage(null);
     }
+  };
+
+  const handleReset = () => {
+    setEventName("");
+    setDescription("");
+    setStartDate("");
+    setEndDate("");
+    setLocation("");
+    setCategory("");
+    setEventImageUrl("");
+    setError(null);
+    setMessage(null);
   };
 
   return (
@@ -110,7 +121,7 @@ const CreateEvent = () => {
           {message && <p className="CreateEvent-success">{message}</p>}
           <div className="CreateEvent-button-group">
             <button type="submit" className="CreateEvent-primary-btn">สร้าง</button>
-            <button type="button" className="CreateEvent-secondary-btn">ยกเลิก</button>
+            <button type="button" className="CreateEvent-secondary-btn" onClick={handleReset}>ยกเลิก</button>
           </div>
         </form>
       </div>
