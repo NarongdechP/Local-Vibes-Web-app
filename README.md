@@ -62,9 +62,10 @@ Local-Vibes-Web-app/
    ```
 
 2. เพิ่มไฟล์ .env ใน server/.env ภายในไฟล์อย่างน้อยต้องประกอบไปด้วย
-   2.1 MONGO_URI ของฐานข้อมูล
-   2.2 JWT_SECRET
-   2.3 NODE_ENV สามารถเลือกได้ว่าเป็นแบบ development หรือ production
+
+- MONGO_URI ของฐานข้อมูล
+- JWT_SECRET
+- NODE_ENV สามารถเลือกได้ว่าเป็นแบบ development หรือ production
 
 3. ตรวจสอบการติดตั้ง Docker Desktop ด้วย docker -v
    ถ้ายังไม่ได้ติดตั้ง `https://www.docker.com/products/docker-desktop/`
