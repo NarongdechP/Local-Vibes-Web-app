@@ -36,6 +36,15 @@ const Navbar = () => {
           <div className="flex items-center space-x-3">
             <FaUserCircle className="text-2xl" />
             <span>{username}</span>
+            
+            {/* เพิ่มปุ่มแก้ไขโปรไฟล์ที่นี่ */}
+            <Link 
+              to="/edit-profile" 
+              className="edit-profile-button"
+            >
+              แก้ไขโปรไฟล์
+            </Link>
+            
             <button onClick={handleLogout} className="logout-button">
               ออกจากระบบ
             </button>
@@ -52,4 +61,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
