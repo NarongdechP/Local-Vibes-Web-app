@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import authRoutes from './routes/authRoutes.js'; // ใช้เส้นทางที่ถูกต้อง
 import eventRoutes from "./routes/eventRoutes.js";
 import connectDB from "./config/db.js";  // เชื่อมต่อ MongoDB
+import apiLimiter from './middleware/rateLimiter.js';
 
 dotenv.config();
 connectDB();  // เรียกฟังก์ชันเชื่อมต่อฐานข้อมูล
@@ -17,15 +18,7 @@ app.use(cors({
 
 app.use(express.json());
 
-app.get("/test-db", async (req, res) => {
-    try {
-        res.json({ status: "🟢 MongoDB connected!" });
-    } catch (err) {
-        console.error("🔴 Database connection failed:", err);
-        res.status(500).json({ error: "Database connection failed" });
-    }
-});
-
+app.use(apiLimiter);
 app.use("/auth", authRoutes);
 app.use("/events", eventRoutes);
 

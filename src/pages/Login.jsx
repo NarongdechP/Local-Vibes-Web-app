@@ -37,11 +37,7 @@ const Login = () => {
       localStorage.setItem('token', token);
       localStorage.setItem('username', username);
 
-      //alert('เข้าสู่ระบบสำเร็จ!');
-      //setLoading(false);
-
       // 🔁 รีโหลดหน้าเว็บเพื่ออัปเดต Navbar และ Protected Routes
-      //window.location.reload();
       window.location.href = '/';
     } catch (error) {
       setLoading(false);
