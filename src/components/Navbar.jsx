@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react'; 
 import { Link, useNavigate } from 'react-router-dom';
 import { FaUserCircle } from "react-icons/fa";
 
@@ -35,16 +35,11 @@ const Navbar = () => {
         {username ? (
           <div className="flex items-center space-x-3">
             <FaUserCircle className="text-2xl" />
-            <span>{username}</span>
             
-            {/* เพิ่มปุ่มแก้ไขโปรไฟล์ที่นี่ */}
-            <Link 
-              to="/edit-profile" 
-              className="edit-profile-button"
-            >
-              แก้ไขโปรไฟล์
+            {/* เพิ่มลิงก์สำหรับชื่อผู้ใช้เพื่อไปที่หน้าแก้ไขโปรไฟล์ */}
+            <Link to="/edit-profile" className="text-blue-500 hover:underline">
+              <span>{username}</span>
             </Link>
-            
             <button onClick={handleLogout} className="logout-button">
               ออกจากระบบ
             </button>
