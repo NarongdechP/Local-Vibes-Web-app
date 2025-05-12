@@ -7,6 +7,7 @@ import {
     changeEmail
 } from "../controllers/authController.js";
 import authenticateUser from "../middleware/authMiddleware.js";
+import { getProfile } from "../controllers/userController.js";
 
 const router = express.Router();
 
@@ -54,24 +55,7 @@ router.patch("/change-email", [
         })
 ], changeEmail);
 
-// Express Route Example
-router.get('/profile', authenticateUser, async (req, res) => {
-    try {
-      // ดึงข้อมูลผู้ใช้จาก User model โดยใช้ id ที่ได้จาก JWT
-      const user = await User.findById(req.user.id).select('-password'); // ไม่ดึงรหัสผ่าน
-      if (!user) {
-        return res.status(404).json({ message: 'ไม่พบข้อมูลผู้ใช้' });
-      }
-      res.json({
-        username: user.username,
-        email: user.email,
-        profile_pic: user.profile_pic,
-        registered_at: user.registered_at,
-      });
-    } catch (err) {
-      console.error(err);
-      res.status(500).json({ message: 'เกิดข้อผิดพลาดในการดึงข้อมูลผู้ใช้' });
-    }
-});
+router.get('/profile', authenticateUser, getProfile);
+
 export default router;
 

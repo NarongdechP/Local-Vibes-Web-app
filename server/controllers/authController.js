@@ -68,22 +68,34 @@ export const login = async (req, res) => {
     }
 };
 
-// 🔹 เปลี่ยนรหัสผ่าน
 export const changePassword = async (req, res) => {
     const errors = validationResult(req);
-    if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
 
     const { oldPassword, newPassword } = req.body;
     const userId = req.user.id;
 
     try {
         const user = await User.findById(userId);
-        if (!user) return res.status(404).json({ error: "ไม่พบผู้ใช้" });
+        if (!user) {
+            return res.status(404).json({ error: "ไม่พบผู้ใช้" });
+        }
 
-        const match = await bcrypt.compare(oldPassword, user.password);
-        if (!match) return res.status(401).json({ error: "รหัสผ่านเดิมไม่ถูกต้อง" });
+        const matchOld = await bcrypt.compare(oldPassword, user.password);
+        if (!matchOld) {
+            return res.status(401).json({ error: "รหัสผ่านเดิมไม่ถูกต้อง" });
+        }
 
-        user.password = await bcrypt.hash(newPassword, 10);
+        // ตรวจรหัสผ่านใหม่ซ้ำกับรหัสเดิม (แบบ plain-text)
+        if (oldPassword === newPassword) {
+            return res.status(400).json({ error: "รหัสผ่านใหม่ต้องไม่เหมือนกับรหัสผ่านเดิม" });
+        }
+
+        // เข้ารหัสและบันทึกรหัสผ่านใหม่
+        const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+        user.password = hashedNewPassword;
         await user.save();
 
         res.json({ message: "เปลี่ยนรหัสผ่านสำเร็จ" });
@@ -93,7 +105,8 @@ export const changePassword = async (req, res) => {
     }
 };
 
-// 🔹 เปลี่ยนอีเมล
+
+// 🔹 เปลี่ยนอีเมล (พร้อมตรวจสอบว่าไม่ซ้ำของเดิม)
 export const changeEmail = async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
@@ -105,7 +118,20 @@ export const changeEmail = async (req, res) => {
         const user = await User.findById(userId);
         if (!user) return res.status(404).json({ error: "ไม่พบผู้ใช้" });
 
-        user.email = sanitizeHtml(newEmail);
+        const sanitizedEmail = sanitizeHtml(newEmail);
+
+        // ตรวจสอบว่าอีเมลใหม่ซ้ำกับอีเมลเดิมหรือไม่
+        if (sanitizedEmail === user.email) {
+            return res.status(400).json({ error: "อีเมลใหม่ต้องไม่เหมือนกับอีเมลเดิม" });
+        }
+
+        // ตรวจสอบว่าอีเมลใหม่ถูกใช้แล้วหรือยัง (หากยังไม่ตรวจที่ route level)
+        const emailExists = await User.findOne({ email: sanitizedEmail });
+        if (emailExists) {
+            return res.status(400).json({ error: "อีเมลนี้ถูกใช้ไปแล้ว" });
+        }
+
+        user.email = sanitizedEmail;
         await user.save();
 
         res.json({ message: "เปลี่ยนอีเมลสำเร็จ", email: user.email });
