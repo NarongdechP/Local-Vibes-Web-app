@@ -6,12 +6,10 @@ const EventCard = ({ event }) => {
   return (
     <Link to={`/event/${event._id}`} className="event-card-link">
       <div className="event-card">
-        {/* รูปภาพกิจกรรม */}
         <div className="event-image">
           <img src={event.event_image_url || "/placeholder-image.jpg"} alt={event.event_name} />
         </div>
 
-        {/* รายละเอียดกิจกรรม */}
         <div className="event-details">
           <h3 className="event-title">{event.event_name}</h3>
           <p className="event-date">

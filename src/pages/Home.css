@@ -1,4 +1,4 @@
-/* Reset margins and padding */
+
 * {
   margin: 0;
   padding: 0;
@@ -22,8 +22,6 @@
 }
 
 
-
-/* Navbar Styles */
 .navbar {
   width: 100%;
   display: flex;
@@ -57,11 +55,11 @@
   gap: 1rem;
 }
 
-/* Search section */
+
 .search-section {
   width: 100%;
   margin-top: 200px;
-  margin-left: -230px; /* Adjusted to account for fixed navbar */
+  margin-right: 50px; 
   padding: 0 20px;
   box-sizing: border-box;
 }
@@ -71,7 +69,8 @@
   width: 100%;
   max-width: 800px;
   margin: 0 auto;
-  align-items: center;
+  align-items: left;
+  margin-right: 480px;
 }
 
 .form button {
@@ -80,10 +79,11 @@
   color: #ffffff;
 }
 
-/* styling of whole input container */
+
+
 .form {
   --timing: 0.3s;
-  --width-of-input: 100%; /* Changed to 100% to be responsive */
+  --width-of-input: 100%; 
   --height-of-input: 40px;
   --border-height: 2px;
   --input-bg: #d1410c;
@@ -99,12 +99,12 @@
   border-radius: 30px;
   transition: border-radius 0.5s ease;
   background: var(--input-bg,#fff);
-  flex: 1; /* Added to work with flexbox layout */
-  margin-right: 20px; /* Added spacing */
+  flex: 1; 
+  margin-right: 20px; 
 
 }
 
-/* styling of Input */
+
 .input {
   font-size: 0.9rem;
   background-color: transparent;
@@ -121,9 +121,6 @@
 }
 
 
-
-
-/* styling of animated border */
 .form:before {
   content: "";
   position: absolute;
@@ -138,7 +135,7 @@
   transition: transform var(--timing) ease;
 }
 
-/* Hover on Input */
+
 .form:focus-within {
   border-radius: var(--after-border-radius);
 }
@@ -147,13 +144,12 @@ input:focus {
   outline: none;
 }
 
-/* here is code of animated border */
+
 .form:focus-within:before {
   transform: scale(1);
 }
 
-/* styling of close button */
-/* == you can click the close button to remove text == */
+
 .reset {
   border: none;
   background: none;
@@ -161,13 +157,12 @@ input:focus {
   visibility: hidden;
 }
 
-/* close button shown when typing */
 input:not(:placeholder-shown) ~ .reset {
   opacity: 1;
   visibility: visible;
 }
 
-/* sizing svg icons */
+
 .form svg {
   width: 17px;
   margin-top: 3px;
@@ -185,7 +180,7 @@ input:not(:placeholder-shown) ~ .reset {
   white-space: nowrap;
 }
 
-/* Header section */
+
 .header-section {
   text-align: left;
   width: 100%;
@@ -204,7 +199,7 @@ input:not(:placeholder-shown) ~ .reset {
   font-size: 16px;
 }
 
-/* Content with sidebar layout */
+
 .content-with-sidebar {
   display: flex;
   flex-wrap: wrap;
@@ -218,12 +213,7 @@ input:not(:placeholder-shown) ~ .reset {
   flex: 0 0 200px;
 }
 
-.events-container {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
+
 
 .sidebar-title {
   font-size: 18px;
@@ -231,25 +221,6 @@ input:not(:placeholder-shown) ~ .reset {
   font-weight: bold;
 }
 
-.category-list {
-  list-style: none;
-  padding: 0;
-}
-
-.category-item {
-  display: flex;
-  align-items: center;
-  padding: 10px 0;
-  cursor: pointer;
-}
-
-.category-item i {
-  margin-right: 15px;
-  width: 20px;
-  color: #333;
-}
-
-/* Event card */
 .event-card {
   display: flex;
   width: 100%;
@@ -274,44 +245,7 @@ input:not(:placeholder-shown) ~ .reset {
   justify-content: center;
 }
 
-.event-details {
-  flex: 1;
-  padding: 15px;
-}
 
-.event-title {
-  font-size: 18px;
-  margin-bottom: 5px;
-  font-weight: bold;
-}
-
-.event-price {
-  color: #0066cc;
-  font-weight: bold;
-  font-size: 16px;
-  margin-bottom: 5px;
-}
-
-.event-date, .event-location {
-  color: #666;
-  font-size: 14px;
-  margin-bottom: 5px;
-}
-
-.event-categories {
-  display: flex;
-  margin-top: 10px;
-  gap: 15px;
-}
-
-.event-category {
-  display: flex;
-  align-items: center;
-  font-size: 13px;
-  color: #777;
-}
-
-/* Media Query for responsive design */
 @media (max-width: 768px) {
   .content-with-sidebar {
     flex-direction: column;
@@ -356,7 +290,7 @@ input:not(:placeholder-shown) ~ .reset {
 
 .category-item:hover,
 .category-item.active {
-  background-color: #0057D9; /* สีส้มสดใส */
+  background-color: #0057D9; 
   color: white;
   border-radius: 30px;
 }
