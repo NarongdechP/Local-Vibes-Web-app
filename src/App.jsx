@@ -5,7 +5,7 @@ import CreateEvent from "./pages/Create_Event";
 import Register from "./pages/Register";
 import Navbar from "./components/Navbar";
 import ProtectedRoute from "./components/ProtectedRoute"; // ← เพิ่ม
-
+import EditProfile from './pages/EditProfile';
 import './App.css';
 
 function App() {
@@ -24,6 +24,9 @@ function App() {
         />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/edit-profile" element={<ProtectedRoute>
+            <EditProfile />
+          </ProtectedRoute>} />
       </Routes>
     </Router>
   );
