@@ -43,11 +43,7 @@
   align-items: center;
 }
 
-.navbar-logo {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: white;
-}
+
 
 .main-nav {
   display: flex;
@@ -163,10 +159,6 @@ input:not(:placeholder-shown) ~ .reset {
 }
 
 
-.form svg {
-  width: 17px;
-  margin-top: 3px;
-}
 
 .location-selector {
   display: flex;
@@ -215,6 +207,7 @@ input:not(:placeholder-shown) ~ .reset {
 
 
 
+
 .sidebar-title {
   font-size: 18px;
   margin-bottom: 15px;
@@ -246,53 +239,65 @@ input:not(:placeholder-shown) ~ .reset {
 }
 
 
-@media (max-width: 768px) {
-  .content-with-sidebar {
+@media screen and (max-width: 768px) {
+  .event-container {
     flex-direction: column;
+    gap: 20px;
   }
-  
-  .sidebar {
+  .form {
     width: 100%;
-    max-width: 100%;
+    margin-right: 0;
   }
-  
-  .event-card {
-    flex-direction: column;
-  }
-  
   .event-image {
     width: 100%;
-    height: 200px;
+    height: 100%;
+    min-height: 150px;
   }
-  
-  .navbar {
-    padding: 0.5rem 1rem;
+
+  .sidebar {
+    display: none; 
   }
-  
+  .event-card {
+    flex-direction: column;
+    width: 100%;
+    justify-self: center;
+  }
+  .event-details {
+    padding: 10px;
+    width: 100%;
+  }
+
+  .content-with-sidebar {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .navbar-left, .navbar-right {
+    margin-bottom: 10px;
+  }
+
   .search-container {
     flex-direction: column;
     align-items: stretch;
+    margin-right: 0;
+  }
+
+  .form {
+    width: 100%;
+    margin-right: 0;
+
+  }
+
+  .sidebar {
+    display: none; /* Hide sidebar on smaller screens */
+  }
+
+  .content-with-sidebar {
+    flex-direction: column;
+    max-height: 100vh;
+    justify-content: center;
+    gap: 20px;
   }
   
-  .location-selector {
-    margin-left: 0;
-    margin-top: 10px;
-  }
 }
-.category-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px;
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
-}
-
-.category-item:hover,
-.category-item.active {
-  background-color: #0057D9; 
-  color: white;
-  border-radius: 30px;
-}
-
 

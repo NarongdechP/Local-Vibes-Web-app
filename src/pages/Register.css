@@ -17,23 +17,7 @@
     padding: 3rem;
     text-align: center;
   }
-  
-  .register-logo-container {
-    background-color: white;
-    width: 120px;
-    height: 40px;
-    border-radius: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 50px;
-    margin-top: 90px;
-  }
-  
-  .register-logo-text {
-    font-weight: bold;
-    color: #0155cf;
-  }
+ 
   
   .register-sidebar-title {
     font-size: 2.2rem;

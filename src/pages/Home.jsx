@@ -79,7 +79,7 @@ const Home = () => {
             {categories.map((cat, index) => (
               <motion.li
                 key={index}
-                className={`category-item ${
+                className={`category-item  ${
                   selectedCategories.includes(cat.name) ? "active" : ""
                 }`}
                 onClick={() => handleCategoryClick(cat.name)}

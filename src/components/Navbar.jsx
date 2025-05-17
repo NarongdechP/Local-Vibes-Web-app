@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'; 
 import { Link, useNavigate } from 'react-router-dom';
 import { FaUserCircle } from "react-icons/fa";
+import logo from '../assets/logo.png';
 
 const Navbar = () => {
   const [username, setUsername] = useState(null);
@@ -24,11 +25,14 @@ const Navbar = () => {
 
   return (
     <nav className="navbar">
-      <div className="navbar-logo">LOGO</div>
+      <div className="navbar-logo">
+        <img  src={logo} alt="logo" /></div>
 
       <div className="navbar-links">
+        <div className="navbar-links flex flex items-start" >
         <Link to="/">หน้าหลัก</Link>
         <Link to="/create">สร้างอีเวนต์</Link>
+        </div>
       </div>
 
       <div className="navbar-user">

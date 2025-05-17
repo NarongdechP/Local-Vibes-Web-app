@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios"; // นำเข้า axios
 import "./Register.css";
+import logo from "../assets/logo.png"; 
 
 const Register = () => {
   const [name, setName] = useState("");  // ค่าชื่อ
@@ -77,9 +78,6 @@ const Register = () => {
   return (
     <div className="register-container">
       <div className="register-sidebar">
-        <div className="register-logo-container">
-          <div className="register-logo-text">LOGO</div>
-        </div>
         <h1 className="register-sidebar-title">ยินดีต้อนรับสู่ Local Vibes!</h1>
         <p className="register-sidebar-description">
           มาค้นหาประสบการณ์ที่เป็นของคุณเอง ร่วมเดินทางไปกับเรา

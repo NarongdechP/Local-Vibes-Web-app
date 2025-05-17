@@ -52,9 +52,6 @@ const Login = () => {
   return (
     <div className="login-container">
       <div className="login-sidebar">
-        <div className="login-logo-container">
-          <div className="login-logo-text">LOGO</div>
-        </div>
         <h1 className="login-sidebar-title">ยินดีต้อนรับสู่ Local Vibes!</h1>
         <p className="login-sidebar-description">
           มาค้นหาประสบการณ์ที่เป็นของคุณเอง ร่วมเดินทางไปกับเรา และสร้างช่วงเวลาที่พิเศษไม่เหมือนใคร
@@ -100,6 +97,7 @@ const Login = () => {
         </div>
       </div>
     </div>
+  
   );
 };
 
