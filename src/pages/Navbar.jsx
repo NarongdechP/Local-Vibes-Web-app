@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaUserCircle } from "react-icons/fa";
 import Favorite from './Favorite';  // ปุ่มหัวใจ
-import logo from '../assets/logo.png';
 
 const Navbar = () => {
   const [username, setUsername] = useState(null);
@@ -23,10 +22,8 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="navbar" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 1rem' }}>
-      <div className="navbar-logo">
-        <img src={logo} alt="logo" style={{ height: '40px' }} />
-      </div>
+    <nav className="navbar" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+      <div className="navbar-logo">LOGO</div>
 
       <div className="navbar-links" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
         <Link to="/">หน้าหลัก</Link>

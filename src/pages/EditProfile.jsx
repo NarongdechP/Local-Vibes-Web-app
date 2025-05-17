@@ -125,7 +125,7 @@ function EditProfile() {
   return (
     <div class="edit-profile-container">
       <div class="sidebar">
-        <h3> ------</h3>
+        <h3>  </h3>
         
         <ul>
           <li class={activeForm === 'profile' ? 'active' : ''} onClick={() => setActiveForm('profile')}>

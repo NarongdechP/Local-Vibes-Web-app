@@ -47,7 +47,9 @@ router.get("/search", searchEvents);
 // 📌 ดูข้อมูลอีเวนต์ตามไอดี
 router.get("/:id", getEventById);
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> c1a0b8aa06ea4aa5df826422eacd78612764e4d8
 export default router;
-
