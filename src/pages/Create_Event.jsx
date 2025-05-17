@@ -187,16 +187,16 @@ const CreateEvent = () => {
             type="text"
             placeholder="ราคาตั๋ว"
             className="CreateEvent-input"
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
+            value={Organizer}
+            onChange={(e) => setOrganizer(e.target.value)}
             required
           />
           <TextInput
             type="text"
             placeholder="จำนวนตั๋ว"
             className="CreateEvent-input"
-            value={amount}
-            onChange={(e) => setAmount(e.target.value)}
+            value={Organizer}
+            onChange={(e) => setOrganizer(e.target.value)}
             required
           />
           

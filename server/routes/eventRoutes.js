@@ -32,7 +32,4 @@ router.get("/search", searchEvents);
 // 📌 ดูข้อมูลอีเวนต์ตามไอดี
 router.get("/:id", getEventById);
 
-router.get('/:id', eventController.getEventById);
-
 export default router;
-
