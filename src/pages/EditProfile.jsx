@@ -123,14 +123,15 @@ function EditProfile() {
   };
 
   return (
-    <div className="edit-profile-container">
-      <div className="sidebar">
-        <h3>บัญชี</h3>
+    <div class="edit-profile-container">
+      <div class="sidebar">
+        <h3> ------</h3>
+        
         <ul>
-          <li className={activeForm === 'profile' ? 'active' : ''} onClick={() => setActiveForm('profile')}>
+          <li class={activeForm === 'profile' ? 'active' : ''} onClick={() => setActiveForm('profile')}>
             ข้อมูลส่วนตัว
           </li>
-          <li className={activeForm === 'email' ? 'active' : ''} onClick={() => {
+          <li class={activeForm === 'email' ? 'active' : ''} onClick={() => {
             setActiveForm('email');
             setNewEmail(''); // ให้ช่องอีเมลใหม่ว่าง
             setEmailChangeSuccess(false);

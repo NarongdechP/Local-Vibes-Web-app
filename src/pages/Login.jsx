@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Login.css';
 import { Link } from 'react-router-dom';
@@ -8,6 +8,16 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+
+  // ลบ token และ redirect กลับ /login เพื่อ refresh state (ถ้ามี token อยู่)
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      localStorage.removeItem('token');
+      localStorage.removeItem('username');
+      window.location.replace(`${window.location.origin}/Local-Vibes-Web-app/login`)
+    }
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -32,13 +42,11 @@ const Login = () => {
         password
       });
 
-      // ✅ ถ้าเข้าสู่ระบบสำเร็จ
       const { token, username } = response.data;
       localStorage.setItem('token', token);
       localStorage.setItem('username', username);
 
-      // 🔁 รีโหลดหน้าเว็บเพื่ออัปเดต Navbar และ Protected Routes
-      window.location.href = '/';
+      window.location.href = '/'; // กลับหน้าแรกหลัง login สำเร็จ
     } catch (error) {
       setLoading(false);
       if (error.response) {
@@ -102,4 +110,7 @@ const Login = () => {
 };
 
 export default Login;
+
+
+
 
