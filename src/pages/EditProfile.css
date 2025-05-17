@@ -25,15 +25,12 @@
   }
   
   .sidebar h3 {
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
     font-weight: bold;
     color: #333;
     font-size: 1.2rem;
-    padding-left: 10rem;
-    margin-top: 5rem;
-    top: 4rem;
-    left: 0;
-    overflow-y: auto;
+    margin-top: 1rem;
+    padding-left: 1rem;
   }
   
   .sidebar ul {
