@@ -86,17 +86,3 @@ export const getEventById = async (req, res) => {
   }
 };
 
-exports.getEventById = async (req, res) => {
-  try {
-    const event = await Event.findById(req.params.id);
-
-    if (!event) {
-      return res.status(404).json({ error: 'ไม่พบกิจกรรมนี้' });
-    }
-
-    res.status(200).json({ event });
-  } catch (err) {
-    console.error('Error fetching event:', err);
-    res.status(500).json({ error: 'เกิดข้อผิดพลาดในการดึงข้อมูลกิจกรรม' });
-  }
-};
