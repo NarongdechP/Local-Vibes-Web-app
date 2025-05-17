@@ -1,20 +1,27 @@
 /* Layout */
 .edit-profile-container {
     display: flex;
-    min-height: 100vh;
+    min-height: 80vh;
+    width: 100vw;
     font-family: 'Prompt', sans-serif;
     background-color: #fff;
+    align-items: flex-start;
+    margin: 0 !important; /* ใช้ !important ชั่วคราวเพื่อทดสอบ */
+    padding: 0 !important;
+    margin-left: 250px;
   }
   
   /* Sidebar */
   .sidebar {
     width: 250px;
     background-color: #f8f8f8;
-    padding: 5.8rem 1rem;
-    border-right: 1px solid #e0e0e0;
+    padding: 6.8rem 1rem 5.8rem 1rem;
     position: sticky;
     top: 0;
     height: 100vh;
+    align-items: flex-start;
+    position: relative;
+    
   }
   
   .sidebar h3 {
@@ -22,36 +29,51 @@
     font-weight: bold;
     color: #333;
     font-size: 1.2rem;
-    padding-left: 0.5rem;
+    padding-left: 10rem;
+    margin-top: 5rem;
+    top: 4rem;
+    left: 0;
+    overflow-y: auto;
   }
   
   .sidebar ul {
     list-style: none;
     padding: 0;
+    margin-top: 1rem;
   }
   
   .sidebar li {
-    padding: 0.8rem 1rem;
+    padding: 1.5rem 1rem;
     margin-bottom: 0.5rem;
     color: #555;
     cursor: pointer;
     border-radius: 6px;
-    transition: all 0.2s;
+    transition: all 0.3s;
+    
+    
   }
   
   .sidebar li:hover,
   .sidebar li.active {
     background-color: #e8f5e9;
     color: #2e7d32;
-    font-weight: 500;
+    font-weight: 600;
+    
+    
   }
   
   /* Main Content */
   .profile-content {
     flex: 1;
     padding: 5.8rem 3rem;
-    overflow-y: auto;
-  }
+    max-width: 700px;
+    margin: 0 auto; /* เพิ่มการจัดตรงกลาง */
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05); /* เงานุ่ม ๆ */
+}
+    
+  
   
   .profile-header {
     margin-bottom: 2rem;
@@ -97,6 +119,7 @@
   /* Form Fields */
   .form-section {
     max-width: 800px;
+    margin-left: 0;
   }
   
   .form-row {
@@ -135,16 +158,18 @@
     justify-content: flex-end;
     gap: 1rem;
     margin-top: 3rem;
+    
   }
   
   .button-confirm {
     background-color: #2e7d32;
     color: white;
-    padding: 0.8rem 2.5rem;
+    padding: 0.9rem 2.8rem;
     border: none;
     border-radius: 30px;
     cursor: pointer;
     font-weight: 500;
+    font-size: 1rem;
     transition: background-color 0.2s;
   }
   
@@ -166,3 +191,7 @@
   .button-cancel:hover {
     background-color: #ffebee;
   }
+  body, html {
+  margin: 0;
+  padding: 0;
+}
