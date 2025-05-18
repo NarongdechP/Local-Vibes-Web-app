@@ -1,13 +1,14 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import authRoutes from './routes/authRoutes.js'; // ใช้เส้นทางที่ถูกต้อง
+import authRoutes from './routes/authRoutes.js';
 import eventRoutes from "./routes/eventRoutes.js";
-import connectDB from "./config/db.js";  // เชื่อมต่อ MongoDB
+import favoriteRoutes from "./routes/favoriteRoutes.js"; // เพิ่มเส้นทาง Favorite
+import connectDB from "./config/db.js";
 import apiLimiter from './middleware/rateLimiter.js';
 
 dotenv.config();
-connectDB();  // เรียกฟังก์ชันเชื่อมต่อฐานข้อมูล
+connectDB();
 
 const app = express();
 
@@ -17,13 +18,14 @@ app.use(cors({
 }));
 
 app.use(express.json());
-
 app.use(apiLimiter);
+
+// Routes
 app.use("/auth", authRoutes);
 app.use("/events", eventRoutes);
+app.use("/favorites", favoriteRoutes); // เพิ่มเส้นทางนี้
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`🚀 Server is running on http://localhost:${PORT}`);
 });
-
