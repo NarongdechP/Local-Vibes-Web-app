@@ -5,7 +5,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSuitcaseRolling } from "@fortawesome/free-solid-svg-icons";
 import './EventDetail.css';
 
-// นำ categories จาก Home.jsx มาใช้งาน
 const categories = [
   { name: "ธุรกิจ", icon: <FaBriefcase /> },
   { name: "อาหาร", icon: <FaUtensils /> },
@@ -21,6 +20,10 @@ const EventDetail = () => {
   const [loading, setLoading] = useState(true);
   const [errorMsg, setErrorMsg] = useState("");
   const [isSmallImage, setIsSmallImage] = useState(false);
+
+  // ✅ เพิ่ม state สำหรับ favorite
+  const [favError, setFavError] = useState("");
+  const [favLoading, setFavLoading] = useState(false);
 
   useEffect(() => {
     const fetchEvent = async () => {
@@ -101,17 +104,14 @@ const EventDetail = () => {
   if (errorMsg) return <div className="event-detail-error-message">❌ {errorMsg}</div>;
   if (!event) return <div className="event-detail-loading-message">ไม่พบข้อมูล</div>;
 
-
   const formatDate = (dateString) => {
     const options = { day: 'numeric', month: 'long', year: 'numeric' };
     return new Date(dateString).toLocaleDateString('th-TH', options);
   };
 
-
   const getTags = () => {
     const tags = [];
-    
-    
+
     if (event.category && Array.isArray(event.category) && event.category.length > 0) {
       event.category.forEach(catName => {
         const matchedCategory = categories.find(cat => cat.name === catName);
@@ -119,14 +119,11 @@ const EventDetail = () => {
           tags.push({ icon: matchedCategory.icon, text: matchedCategory.name });
         }
       });
-    } 
-    
-    else if (event.category && typeof event.category === 'string') {
-  
-      const categoryNames = event.category.includes(',') 
+    } else if (event.category && typeof event.category === 'string') {
+      const categoryNames = event.category.includes(',')
         ? event.category.split(',').map(cat => cat.trim())
         : [event.category.trim()];
-        
+
       categoryNames.forEach(catName => {
         const matchedCategory = categories.find(cat => cat.name === catName);
         if (matchedCategory) {
@@ -134,21 +131,15 @@ const EventDetail = () => {
         }
       });
     }
-    
-    // ถ้าไม่มีข้อมูล category หรือไม่พบ category ที่ตรงกัน ให้แสดงแท็กดีฟอลต์ 2 อัน
+
     if (tags.length === 0) {
       const foodCategory = categories.find(cat => cat.name === "อาหาร");
       const musicCategory = categories.find(cat => cat.name === "ดนตรี");
-      
-      if (foodCategory) {
-        tags.push({ icon: foodCategory.icon, text: foodCategory.name });
-      }
-      
-      if (musicCategory) {
-        tags.push({ icon: musicCategory.icon, text: musicCategory.name });
-      }
+
+      if (foodCategory) tags.push({ icon: foodCategory.icon, text: foodCategory.name });
+      if (musicCategory) tags.push({ icon: musicCategory.icon, text: musicCategory.name });
     }
-    
+
     return tags;
   };
 
@@ -167,21 +158,21 @@ const EventDetail = () => {
           }}
         />
       </div>
-      
+
       <div className="event-detail-title">
         <h1>{event.event_name}</h1>
       </div>
-      
+
       <div className="event-detail-date">
         ระหว่างวันที่ {formatDate(event.start_date).split(' ')[0]}-
         {formatDate(event.end_date).split(' ')[0]} {formatDate(event.end_date).split(' ')[1]} {formatDate(event.end_date).split(' ')[2]}
       </div>
-      
+
       <div className="event-detail-location-section">
         <h3 className="event-detail-section-heading">สถานที่</h3>
         <div className="location-name-font">{event.location || "ไม่ระบุ"}</div>
       </div>
-      
+
       <div className="event-detail-description-section">
         <h3 className="event-detail-section-heading">เกี่ยวกับกิจกรรม</h3>
         <div className="event-detail-description">
@@ -197,7 +188,7 @@ const EventDetail = () => {
           )}
         </div>
       </div>
-      
+
       <div className="event-detail-tag-section">
         <h3 className="event-detail-section-heading">แท็ก</h3>
         <div className="event-detail-tags">
@@ -208,12 +199,16 @@ const EventDetail = () => {
           ))}
         </div>
       </div>
-      
-      <button className="event-detail-favorite-btn" onClick={handleFavorite}>
+
+      <button className="event-detail-favorite-btn" onClick={handleFavorite} disabled={favLoading}>
         <FaHeart />
-        <span className="event-detail-text">เพิ่มในรายการชื่นชอบ</span>
+        <span className="event-detail-text">
+          {favLoading ? "กำลังเพิ่ม..." : "เพิ่มในรายการชื่นชอบ"}
+        </span>
       </button>
-      
+
+      {favError && <div className="event-detail-error-message">❌ {favError}</div>}
+
       {/* {isPriceFree && <button className="event-detail-free-button">ฟรี</button>} */}
     </div>
   );
