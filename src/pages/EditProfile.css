@@ -1,0 +1,187 @@
+/* Layout */
+.edit-profile-container {
+    display: flex;
+    min-height: 80vh;
+    width: 100vw;
+    font-family: 'Prompt', sans-serif;
+    background-color: #fff;
+    align-items: flex-start;
+    margin: 0 !important; /* ใช้ !important ชั่วคราวเพื่อทดสอบ */
+    padding: 0 !important;
+    margin-left: 250px;
+  }
+  
+  
+  
+  .sidebar h3 {
+    margin-bottom: 2.5rem;
+    font-weight: bold;
+    color: #333;
+    font-size: 1.2rem;
+    margin-top: 1rem;
+    
+  }
+  
+  .sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 1rem;
+  }
+  
+  .sidebar li {
+    padding: 20px 10px;
+    margin-bottom: 0.5rem;
+    color: #555;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: all 0.3s;
+    
+    
+  }
+  
+  .sidebar li:hover,
+  .sidebar li.active {
+    color: #d1410c;
+    font-weight: 600;
+    
+    
+  }
+  .h3-subtitle{
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-top: 8px;
+    margin-bottom: 10px;
+  }
+  /* Main Content */
+  .profile-content {
+    flex: 1;
+    padding: 5.8rem 3rem;
+    max-width: 900px;
+    margin: 0 20px 0px 50px; /* เพิ่มการจัดตรงกลาง */
+    background-color: #fff;
+    border-radius: 12px;
+}
+    
+  
+  
+  .profile-header {
+    margin-bottom: 2rem;
+  }
+  
+  .profile-header h1 {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 0.5rem;
+  }
+  
+  .profile-header h3 {
+    font-size: 1.2rem;
+    color: #666;
+    font-weight: normal;
+  }
+  
+  .profile-image-section {
+    display: flex;
+    align-items: center;
+    margin: 2rem 0 3rem;
+  }
+  
+  .profile-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: #e0e0e0;
+    margin-right: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .change-photo {
+    color: #2e7d32;
+    font-size: 0.9rem;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+  
+  /* Form Fields */
+  .form-section {
+    max-width: 800px;
+    margin-left: 0;
+  }
+  
+  .form-row {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 1.8rem;
+  }
+  
+  .form-group {
+    flex: 1;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #555;
+    font-size: 0.95rem;
+  }
+  
+  .form-group input {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+  }
+  
+  .form-group input:focus {
+    outline: none;
+    border-color: #2e7d32;
+  }
+  
+  /* Buttons */
+  .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 3rem;
+    
+  }
+  
+  .button-confirm {
+    background-color: #2e7d32;
+    color: white;
+    padding: 0.9rem 2.8rem;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    margin-top: 10px;
+    font-weight: 500;
+    font-size: 1rem;
+    transition: background-color 0.2s;
+  }
+  
+  .button-confirm:hover {
+    background-color: #1b5e20;
+  }
+  
+  .button-cancel {
+    background-color: transparent;
+    color: #f44336;
+    padding: 0.8rem 2rem;
+    border: 1px solid #f44336;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s;
+  }
+
+
+  .button-cancel:hover {
+    background-color: #ffebee;
+  }
+  body, html {
+  margin: 0;
+  padding: 0;
+}

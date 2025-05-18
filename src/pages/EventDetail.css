@@ -1,0 +1,115 @@
+/* ตัวอย่าง CSS พื้นฐาน (สามารถแก้ไขได้ตามต้องการ) */
+.event-detail-container {
+  width: 1500px;
+  margin: 20px;
+  padding: 16px;
+}
+
+.event-image-container {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.10);
+  min-width: 400px;
+  min-height: 300px;
+  object-fit: contain;
+  /* ขนาดปกติสำหรับภาพใหญ่ */
+  max-width: 100%;
+  max-height: 100%;
+  transition: transform 0.3s ease;
+}
+
+
+.enlarge-image {
+  transform: scale(1.6);
+  margin-bottom: 100px;
+}
+
+.event-detail-image {
+  justify-self: center;
+  width: 30%;
+  height: 100%;
+  margin-top: 500px;
+  margin-bottom: 16px;
+}
+
+.favorite-btn {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  color: red;
+}
+
+.event-detail-date{
+  font-size: 1.2rem;
+  color: #555;
+  margin-bottom: 16px;
+  margin-top: 16px
+}
+
+.event-detail-description-section {
+  margin-top: 16px;
+}
+
+.event-detail-description {
+  font-size: 18px;
+  color: #333;
+  line-height: 1.5;
+}
+
+.event-detail-tag{
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 16px;
+  margin-top: 10px
+}
+
+.event-detail-section-heading{
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.location-name-font{
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 16px;
+  margin-top: 10px
+}
+
+.event-detail-description{
+  font-size: 18px;
+  color: #333;
+  line-height: 1.5;
+  
+}
+
+.event-detail-text{
+  font-size: 15px;
+  margin-left: 12px;
+}
+
+.event-detail-free-button{
+  background-color: #d1410c;
+  margin-top: 0px; 
+  margin-left: 1200px;
+  margin-bottom: 12px;
+  color: white;
+  padding: 10px 60px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.event-detail-favorite-btn{
+  color: #d1410c;
+  background-color: #fff;
+  border-color: #d1410c;
+  
+}
