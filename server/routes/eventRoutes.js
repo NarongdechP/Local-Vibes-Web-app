@@ -1,5 +1,6 @@
 import express from "express";
 import { body } from "express-validator";
+import multer from "multer";
 import authenticateUser from "../middleware/authMiddleware.js";
 import {
   createEvent,
@@ -8,17 +9,31 @@ import {
   getEventById,
 } from "../controllers/eventController.js";
 
+// setup multer สำหรับอัปโหลดรูป
+const upload = multer({ storage: multer.memoryStorage() });
+
 const router = express.Router();
 
-// 📌 สร้างอีเวนต์ใหม่
 router.post(
   "/create",
   authenticateUser,
+  upload.single("event_image"), // รับไฟล์จาก field ชื่อ event_image
   [
-    body("event_name").trim().notEmpty().withMessage("กรุณากรอกชื่ออีเวนต์"),
-    body("start_date").isISO8601().withMessage("รูปแบบวันที่ไม่ถูกต้อง"),
-    body("end_date").isISO8601().withMessage("รูปแบบวันที่ไม่ถูกต้อง"),
-    body("event_image_url").optional().isURL().withMessage("กรุณากรอก URL รูปภาพที่ถูกต้อง"),
+    body("event_name")
+      .trim()
+      .notEmpty()
+      .withMessage("กรุณากรอกชื่ออีเวนต์"),
+    body("start_date")
+      .notEmpty()
+      .withMessage("กรุณากรอกวันที่เริ่มต้น")
+      .isISO8601()
+      .withMessage("รูปแบบวันที่ไม่ถูกต้อง"),
+    body("end_date")
+      .notEmpty()
+      .withMessage("กรุณากรอกวันที่สิ้นสุด")
+      .isISO8601()
+      .withMessage("รูปแบบวันที่ไม่ถูกต้อง"),
+    // ไม่ต้อง validate event_image_url ถ้าไม่ได้ส่ง url มา
   ],
   createEvent
 );
@@ -32,7 +47,6 @@ router.get("/search", searchEvents);
 // 📌 ดูข้อมูลอีเวนต์ตามไอดี
 router.get("/:id", getEventById);
 
-router.get('/:id', eventController.getEventById);
+
 
 export default router;
-
