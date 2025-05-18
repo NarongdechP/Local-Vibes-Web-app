@@ -86,8 +86,7 @@ const FavoritePage = () => {
   return (
     <div className="home-container">
       <div className="header-section">
-        <h1 className="main-title">กิจกรรมที่คุณชื่นชอบ</h1>
-        <p className="subtitle">คลิกเพื่อดูรายละเอียดหรือลบออกจากรายการโปรด</p>
+        <h1 className="main-title-new " style={{ marginBottom:'100px'}}>กิจกรรมที่คุณชื่นชอบ</h1>
       </div>
 
       <div className="content-with-sidebar">

@@ -17,7 +17,7 @@ const EventCard = ({ event, onRemoveFavorite }) => {
       <Link to={`/event/${event._id}`} className="event-card-link">
         <div className="event-card" style={{ position: 'relative' }}> {/* ✅ ต้องมี position: relative */}
 
-          {/* ✅ ปุ่มถังขยะมุมบนขวา (ไอคอนสีแดงล้วน) */}
+       
           {onRemoveFavorite && (
             <button
               onClick={handleRemoveClick}
@@ -34,7 +34,7 @@ const EventCard = ({ event, onRemoveFavorite }) => {
                 zIndex: 10,
               }}
             >
-              <FontAwesomeIcon icon={faTrash} style={{ color: '#ff4d4f', fontSize: '1.3rem' }} />
+              <FontAwesomeIcon icon={faTrash} style={{ color: '#ff4d4f', fontSize: '18px' , marginTop:'15px',marginRight:'5px'}} />
             </button>
           )}
 
