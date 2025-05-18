@@ -1,150 +1,136 @@
-import React, { useState, useEffect } from 'react';
-import { FaHeart, FaRegHeart } from 'react-icons/fa';
+import React, { useState, useEffect } from "react";
+import EventCard from "../components/EventCard";
+import { FaUtensils, FaMusic, FaBriefcase, FaHeart } from "react-icons/fa";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSuitcaseRolling } from "@fortawesome/free-solid-svg-icons";
+import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
+import "./Home.css";
+
+const categories = [
+  { name: "ธุรกิจ", icon: <FaBriefcase /> },
+  { name: "อาหาร", icon: <FaUtensils /> },
+  { name: "สุขภาพ", icon: <FaHeart /> },
+  { name: "ดนตรี", icon: <FaMusic /> },
+  { name: "ท่องเที่ยว", icon: <FontAwesomeIcon icon={faSuitcaseRolling} /> },
+];
 
 const FavoritePage = () => {
   const [events, setEvents] = useState([]);
   const [favorites, setFavorites] = useState([]);
+  const [filteredEvents, setFilteredEvents] = useState([]);
+  const [selectedCategories, setSelectedCategories] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
-  // ฟังก์ชันเรียก API
+  useEffect(() => {
+    fetchFavorites();
+  }, []);
+
   const fetchFavorites = async () => {
-    try {
-      const res = await fetch('http://localhost:3000/favorites', {
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
-        }
-      });
-      const data = await res.json();
-      setFavorites(data.map(fav => fav.event._id || fav.event)); // ขึ้นกับโครงสร้าง response
-    } catch (err) {
-      setError(err.message);
-    }
-  };
-
-  // ฟังก์ชันเพิ่ม/ลบ Favorite
-  const toggleFavorite = async (eventId) => {
     setLoading(true);
     try {
-      if (favorites.includes(eventId)) {
-        await removeFavorite(eventId);
-      } else {
-        await addFavorite(eventId);
-      }
-      await fetchFavorites(); // ดึงข้อมูลใหม่หลังอัปเดต
+      const res = await fetch("http://localhost:3000/favorites", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      const data = await res.json();
+      const favoriteEvents = data.map((fav) => fav.event);
+      setEvents(favoriteEvents);
+      setFilteredEvents(favoriteEvents);
+      setFavorites(favoriteEvents.map((e) => e._id));
     } catch (err) {
-      setError(err.message);
+      setError("เกิดข้อผิดพลาดในการโหลดข้อมูล");
     } finally {
       setLoading(false);
     }
   };
 
-  // ฟังก์ชันเรียก API โดยตรง
-  const addFavorite = async (eventId) => {
-    const res = await fetch(`http://localhost:3000/favorites/${eventId}`, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${localStorage.getItem('token')}`,
-        'Content-Type': 'application/json'
-      }
-    });
-    if (!res.ok) throw new Error(await res.text());
-    return await res.json();
+  const toggleFavorite = async (eventId) => {
+    try {
+      await fetch(`http://localhost:3000/favorites/${eventId}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      await fetchFavorites();
+    } catch (err) {
+      console.error("ลบ favorite ไม่สำเร็จ", err);
+    }
   };
 
-  const removeFavorite = async (eventId) => {
-    const res = await fetch(`http://localhost:3000/favorites/${eventId}`, {
-      method: 'DELETE',
-      headers: {
-        'Authorization': `Bearer ${localStorage.getItem('token')}`
-      }
-    });
-    if (!res.ok) throw new Error(await res.text());
+  const handleCategoryClick = (category) => {
+    const newSelected = selectedCategories.includes(category)
+      ? selectedCategories.filter((c) => c !== category)
+      : [...selectedCategories, category];
+
+    setSelectedCategories(newSelected);
+
+    if (newSelected.length === 0) {
+      setFilteredEvents(events);
+    } else {
+      setFilteredEvents(
+        events.filter((event) =>
+          newSelected.some((cat) => event.category?.includes(cat))
+        )
+      );
+    }
   };
 
-  // ดึงข้อมูลครั้งแรกเมื่อ component โหลด
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      try {
-        // ดึงข้อมูลอีเวนต์
-        const eventsRes = await fetch('http://localhost:3000/events');
-        const eventsData = await eventsRes.json();
-        setEvents(eventsData);
-        
-        // ดึงข้อมูลรายการโปรด
-        await fetchFavorites();
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
+  if (loading) return <p style={{ padding: "2rem" }}>กำลังโหลด...</p>;
+  if (error) return <p style={{ padding: "2rem", color: "red" }}>{error}</p>;
 
   return (
-    <div style={{ padding: '2rem', maxWidth: '800px', margin: '0 auto' }}>
-      <h1 style={{ textAlign: 'center', fontSize: '2rem', marginBottom: '2rem' }}>
-        รายการโปรดของคุณ
-      </h1>
-
-      {/* แสดง Event พร้อมปุ่มหัวใจ */}
-      <div style={{ display: 'grid', gap: '1rem' }}>
-        {events.map(event => (
-          <div 
-            key={event._id} 
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              padding: '1rem',
-              border: '1px solid #ddd',
-              borderRadius: '8px'
-            }}
-          >
-            <span>{event.name}</span>
-            <button 
-              onClick={() => toggleFavorite(event._id)}
-              disabled={loading}
-              style={{
-                background: 'none',
-                border: 'none',
-                cursor: 'pointer',
-                fontSize: '1.5rem',
-                opacity: loading ? 0.5 : 1
-              }}
-              aria-label={favorites.includes(event._id) ? "Remove from favorites" : "Add to favorites"}
-            >
-              {favorites.includes(event._id) ? (
-                <FaHeart color="red" />
-              ) : (
-                <FaRegHeart />
-              )}
-            </button>
-          </div>
-        ))}
+    <div className="home-container">
+      <div className="header-section">
+        <h1 className="main-title">กิจกรรมที่คุณชื่นชอบ</h1>
+        <p className="subtitle">คลิกเพื่อดูรายละเอียดหรือลบออกจากรายการโปรด</p>
       </div>
 
-      {/* แสดงรายการโปรด */}
-      {favorites.length > 0 && (
-        <div style={{ marginTop: '2rem' }}>
-          <h2>รายการที่คุณชอบ:</h2>
-          <ul>
-            {events
-              .filter(event => favorites.includes(event._id))
-              .map(event => (
-                <li key={event._id}>{event.name}</li>
-              ))}
+      <div className="content-with-sidebar">
+        <div className="sidebar">
+          <h2 className="sidebar-title">หมวดหมู่</h2>
+          <ul className="category-list">
+            {categories.map((cat, index) => (
+              <motion.li
+                key={index}
+                className={`category-item ${
+                  selectedCategories.includes(cat.name) ? "active" : ""
+                }`}
+                onClick={() => handleCategoryClick(cat.name)}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <span className="category-icon">{cat.icon}</span>
+                <span className="category-name">{cat.name}</span>
+              </motion.li>
+            ))}
           </ul>
         </div>
-      )}
+
+        <div className="events-container">
+          {filteredEvents.length > 0 ? (
+            filteredEvents.map((event) => (
+              <EventCard
+                key={event._id}
+                event={event}
+                onRemoveFavorite={toggleFavorite}
+              />
+            ))
+          ) : (
+            <p className="no-events">คุณยังไม่มีอีเวนต์ในรายการโปรด</p>
+          )}
+        </div>
+      </div>
     </div>
   );
 };
 
 export default FavoritePage;
+
+
+
+

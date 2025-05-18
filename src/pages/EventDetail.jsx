@@ -53,28 +53,35 @@ const EventDetail = () => {
   }, [event]);
 
   const handleFavorite = async () => {
+    setFavError("");
+    setFavLoading(true);
     try {
       const token = localStorage.getItem("token");
+      if (!token) {
+        setFavError("กรุณาเข้าสู่ระบบก่อนเพิ่มรายการโปรด");
+        setFavLoading(false);
+        return;
+      }
 
-      const response = await fetch("http://localhost:3000/favorites/add", {
+      const response = await fetch(`http://localhost:3000/favorites/${id}`, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ eventId: id }),
       });
 
       const data = await response.json();
 
       if (response.ok) {
-        navigate("/favorites");
+        navigate("/FavoritePage");
       } else {
-        alert(data.error || "ไม่สามารถเพิ่มรายการโปรดได้");
+        setFavError(data.message || "ไม่สามารถเพิ่มรายการโปรดได้");
       }
     } catch (err) {
       console.error(err);
-      alert("เกิดข้อผิดพลาดในการเพิ่มรายการโปรด");
+      setFavError("เกิดข้อผิดพลาดในการเพิ่มรายการโปรด");
+    } finally {
+      setFavLoading(false);
     }
   };
 

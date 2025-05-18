@@ -125,7 +125,7 @@ function EditProfile() {
   return (
     <div class="edit-profile-container">
       <div class="sidebar">
-        <h3>  </h3>
+        <h2>บัญชี  </h2>
         
         <ul>
           <li class={activeForm === 'profile' ? 'active' : ''} onClick={() => setActiveForm('profile')}>
@@ -180,6 +180,8 @@ function EditProfile() {
                 <input type="email" value={newEmail} onChange={(e) => setNewEmail(e.target.value)} required />
               </div>
               {emailChangeSuccess && <p className="success-text">เปลี่ยนอีเมลสำเร็จ</p>}
+              
+              
               <div className="form-buttons">
                 <button type="submit" className="button-confirm">ยืนยัน</button>
               </div>

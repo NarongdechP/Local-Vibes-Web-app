@@ -1,10 +1,11 @@
 import express from "express";
-import protect from "../middleware/authMiddleware.js"; // Middleware เช็คการล็อกอิน
+import mongoose from "mongoose";
+import protect from "../middleware/authMiddleware.js"; // Middleware สำหรับเช็ค JWT
 import Favorite from "../models/Favorite.js";
 
 const router = express.Router();
 
-// ดึงรายการโปรดของผู้ใช้
+// ✅ ดึงรายการโปรดของผู้ใช้
 router.get("/", protect, async (req, res) => {
   try {
     const favorites = await Favorite.find({ user: req.user.id }).populate("event");
@@ -14,29 +15,41 @@ router.get("/", protect, async (req, res) => {
   }
 });
 
-// เพิ่มรายการโปรด
+// ✅ เพิ่มอีเวนต์ในรายการโปรด
 router.post("/:eventId", protect, async (req, res) => {
   try {
-    const favorite = new Favorite({
-      user: req.user.id,
-      event: req.params.eventId
-    });
-    await favorite.save();
-    res.status(201).json(favorite);
-  } catch (error) {
-    if (error.code === 11000) {
-      return res.status(400).json({ message: "Event is already in favorites" });
+    const userId = req.user._id;
+    const eventId = req.params.eventId;
+
+    if (!eventId) {
+      return res.status(400).json({ message: "Event ID is required" });
     }
-    res.status(500).json({ message: "Server Error" });
+
+    if (!mongoose.Types.ObjectId.isValid(eventId)) {
+      return res.status(400).json({ message: "Invalid event ID format" });
+    }
+
+    const exist = await Favorite.findOne({ user: userId, event: eventId });
+    if (exist) {
+      return res.status(400).json({ message: "รายการโปรดนี้มีอยู่แล้ว" });
+    }
+
+    const favorite = new Favorite({ user: userId, event: eventId });
+    await favorite.save();
+
+    res.status(201).json({ message: "เพิ่มรายการโปรดสำเร็จ" });
+  } catch (error) {
+    console.error("Error saving favorite:", error);
+    res.status(500).json({ message: "เกิดข้อผิดพลาดในการบันทึก" });
   }
 });
 
-// ลบรายการโปรด
+// ✅ ลบรายการโปรด
 router.delete("/:eventId", protect, async (req, res) => {
   try {
     await Favorite.findOneAndDelete({
       user: req.user.id,
-      event: req.params.eventId
+      event: req.params.eventId,
     });
     res.status(204).send();
   } catch (error) {

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 const Favorite = () => {
   return (
-    <Link to="/favorites" style={{ color: 'white', fontSize: '1rem' }} title="รายการโปรด">
+    <Link to="/FavoritePage" style={{ color: 'white', fontSize: '1rem' }} title="รายการโปรด">
       <FaHeart />
     </Link>
   );
