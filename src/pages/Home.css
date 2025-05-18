@@ -199,12 +199,18 @@ input:not(:placeholder-shown) ~ .reset {
   width: 100%;
   padding: 0 20px;
   box-sizing: border-box;
+  margin-bottom: 150px;
 }
 
 .sidebar {
   flex: 0 0 200px;
 }
 
+h2.sidebar-title {
+  font-size: 24px;
+  color: #333;
+  margin-top: auto;
+}
 
 
 
@@ -269,6 +275,8 @@ input:not(:placeholder-shown) ~ .reset {
 
   .content-with-sidebar {
     flex-direction: column;
+    max-height: 100vh;
+    width: 100%;
     gap: 20px;
   }
 
