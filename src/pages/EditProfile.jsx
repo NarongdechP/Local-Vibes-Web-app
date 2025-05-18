@@ -125,7 +125,7 @@ function EditProfile() {
   return (
     <div class="edit-profile-container">
       <div class="sidebar">
-        <h3>  </h3>
+        <h2>บัญชี  </h2>
         
         <ul>
           <li class={activeForm === 'profile' ? 'active' : ''} onClick={() => setActiveForm('profile')}>
@@ -151,6 +151,7 @@ function EditProfile() {
         {activeForm === 'profile' && (
           <>
             <h1>ข้อมูลส่วนตัว</h1>
+            <h2> </h2>
             <h3>ข้อมูลผู้ใช้</h3>
             <form onSubmit={handleSave}>
               <div className="form-row">
