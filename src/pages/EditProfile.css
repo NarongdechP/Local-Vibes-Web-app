@@ -19,12 +19,14 @@
   color: #333;
   font-size: 1.2rem;
   margin-top: 1rem;
+  
 }
 
 .sidebar ul {
   list-style: none;
   padding: 0;
   margin-top: 1rem;
+  
 }
 
 .sidebar li {
@@ -34,20 +36,24 @@
   cursor: pointer;
   border-radius: 6px;
   transition: all 0.3s;
+  
 }
 
 .sidebar li:hover,
 .sidebar li.active {
   color: #d1410c;
   font-weight: 600;
+  
 }
 
 /* Main Content */
 .profile-content {
   flex: 1;
-  padding: 0.5rem 6rem; /* เพิ่มระยะห่างด้านบน */
+  padding: 0.5rem 2rem; /* เพิ่มระยะห่างด้านบน */
   max-width: 700px;
-  margin: 0 auto;
+  
+  margin-left: 3rem;
+  margin-right: auto;
   background-color: #fff;
   border-radius: 12px;
  
@@ -68,7 +74,6 @@
 }
 
 .profile-header h3 {
-  
   font-size: 1.2rem;
   color: #666;
   font-weight: normal;
