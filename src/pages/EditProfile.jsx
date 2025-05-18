@@ -125,7 +125,7 @@ function EditProfile() {
   return (
     <div class="edit-profile-container">
       <div class="sidebar">
-        <h3>  </h3>
+        <h2>บัญชี  </h2>
         
         <ul>
           <li class={activeForm === 'profile' ? 'active' : ''} onClick={() => setActiveForm('profile')}>
@@ -149,23 +149,52 @@ function EditProfile() {
 
       <div className="profile-content">
         {activeForm === 'profile' && (
-          <>
-            <h1>ข้อมูลส่วนตัว</h1>
-            <h3>ข้อมูลผู้ใช้</h3>
-            <form onSubmit={handleSave}>
-              <div className="form-row">
-                <input name="username" type="text" placeholder="ชื่อ" value={user.username} onChange={handleInputChange} />
-                <input name="phone" type="text" placeholder="หมายเลขโทรศัพท์" value={user.phone} onChange={handleInputChange} />
-              </div>
-              <div className="form-row">
-                <input name="address" type="text" placeholder="ที่อยู่" value={user.address} onChange={handleInputChange} className="address-input" />
-              </div>
-              <div className="form-buttons">
-                <button type="submit" className="button-confirm">บันทึก</button>
-              </div>
-            </form>
-          </>
-        )}
+  <>
+    <h1>ข้อมูลส่วนตัว</h1>
+    <h2> </h2>
+    <h3>ข้อมูลผู้ใช้</h3>
+    <form onSubmit={handleSave}>
+      <div className="form-row">
+        <div className="form-group">
+          <label>ชื่อ</label>
+          <input
+            name="username"
+            type="text"
+            placeholder="ชื่อ"
+            value={user.username}
+            onChange={handleInputChange}
+          />
+        </div>
+        <div className="form-group">
+          <label>หมายเลขโทรศัพท์</label>
+          <input
+            name="phone"
+            type="text"
+            placeholder="หมายเลขโทรศัพท์"
+            value={user.phone}
+            onChange={handleInputChange}
+          />
+        </div>
+      </div>
+      <div className="form-row">
+        <div className="form-group">
+          <label>ที่อยู่</label>
+          <input
+            name="address"
+            type="text"
+            placeholder="ที่อยู่"
+            value={user.address}
+            onChange={handleInputChange}
+            className="address-input"
+          />
+        </div>
+      </div>
+      <div className="form-buttons">
+        <button type="submit" className="button-confirm">บันทึก</button>
+      </div>
+    </form>
+  </>
+)}
 
         {activeForm === 'email' && (
           <div className="email-change-form">
@@ -180,6 +209,8 @@ function EditProfile() {
                 <input type="email" value={newEmail} onChange={(e) => setNewEmail(e.target.value)} required />
               </div>
               {emailChangeSuccess && <p className="success-text">เปลี่ยนอีเมลสำเร็จ</p>}
+              
+              
               <div className="form-buttons">
                 <button type="submit" className="button-confirm">ยืนยัน</button>
               </div>
